@@ -23,12 +23,8 @@ export default class Leaderboard extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <TableContainer component={Paper} align='center' elevation={3} sx={{
-                    width: '100%',
-                    }}>
-                    <Table aria-label="simple table" align='center'sx={{
-                        width: '100%',
-                        }}>
+                <TableContainer component={Paper} align='center' elevation={3}>
+                    <Table align='center'>
                         <TableHead>
                             <TableRow>
                                 <TableCell align="left" sx={{
@@ -60,7 +56,7 @@ export default class Leaderboard extends React.Component {
                             </TableRow>
                             {rows.map((row, index) => (
                             <TableRow
-                                key={row.name}
+                                key={index}
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                                 <TableCell component="th" scope="row">
                                 {index + 4}

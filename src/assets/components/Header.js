@@ -1,11 +1,11 @@
 import * as React from "react";
-import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { ReactComponent as DiscordIcon} from '../icons/Discord-Logo-White.svg';
 import TextField from '@mui/material/TextField';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import Switch from '@mui/material/Switch';
 
 export default class Header extends React.Component {
     render() {
@@ -28,14 +28,20 @@ export default class Header extends React.Component {
                             width: '40%',
                             float: 'center'
                         }}/>
-                    <IconButton aria-label="discord" sx={{
-                        height: "40px",
-                        width: "60px",
-                        float: "right",
-                        margin: '10px',
-                    }}>
+                        <div style={{display: "flex", alignItems: "center"}}>
+                        <Switch
+                            checked={this.props.checkBox}
+                            onChange={this.props.handleSwitchChange}
+                            />
+                        <IconButton aria-label="discord" sx={{
+                            height: "40px",
+                            width: "60px",
+                            float: "right",
+                            margin: '10px',
+                            }}>
                       <DiscordIcon color='secondary' />
                     </IconButton >
+                    </div>
                 </Toolbar>
             </AppBar>
         );

@@ -2,24 +2,47 @@ import * as React from "react";
 import './App.css';
 import { createTheme, ThemeProvider} from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-
+import Box from "@mui/material/Box";
 import Leaderboard from './assets/components/Leaderboard';
 import Header from './assets/components/Header';
 
 
 export default class App extends React.Component {
+    constructor(props){
+        super(props)
+        this.state={
+            isDark: true
+        }
+    }
+    handleSwitchChange = () =>{
+        this.setState({isDark: !this.state.isDark})
+    }
     render() {
-        const darkTheme = createTheme({ palette: { mode: 'dark' } });
-        const lightTheme = createTheme({ palette: { mode: 'light' } });
+        const theme = createTheme({ palette: { mode: (this.state.isDark ? "dark": "light") } });
         return (
-            <ThemeProvider theme={darkTheme}>
-                <Header />
+            <ThemeProvider theme={theme}>
+                <Box
+                sx={{
+                    backgroundColor: "background.default",
+                    width: '100vw',
+                    height: '100vh',
+                    position: 'absolute'
+                }}>
+                <Header
+                handleSwitchChange={this.handleSwitchChange}
+                checkBox={this.state.isDark}
+                 />
                 <Paper elevation={1} sx={{
-                    height: '100%',
-                    padding: '10%',
-                    }}>
+                    marginTop: 8,
+                    paddingLeft: 10,
+                    paddingRight: 10,
+                    paddingBottom: 2,
+                    paddingTop: 2
+
+                }}>
                     <Leaderboard />
                 </Paper>
+                </Box>
             </ThemeProvider>
         );
     }
