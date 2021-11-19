@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import Leaderboard from './assets/components/Leaderboard';
 import Header from './assets/components/Header';
 
-
 export default class App extends React.Component {
     constructor(props){
         super(props)

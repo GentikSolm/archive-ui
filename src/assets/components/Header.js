@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 export default class Header extends React.Component {
     render() {
@@ -29,10 +30,12 @@ export default class Header extends React.Component {
                             float: 'center'
                         }}/>
                         <div style={{display: "flex", alignItems: "center"}}>
-                        <Switch
-                            checked={this.props.checkBox}
-                            onChange={this.props.handleSwitchChange}
-                            />
+                        <FormControlLabel control={
+                            <Switch
+                                checked={this.props.checkBox}
+                                onChange={this.props.handleSwitchChange}
+                                />}
+                            label="Dark Theme"/>
                         <IconButton aria-label="discord" sx={{
                             height: "40px",
                             width: "60px",
