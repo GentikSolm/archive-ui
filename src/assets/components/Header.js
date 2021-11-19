@@ -7,40 +7,37 @@ import TextField from '@mui/material/TextField';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 
-class Header extends React.Component {
+export default class Header extends React.Component {
     render() {
         return (
             <AppBar>
-            <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
-                <Button variant="text" color='secondary' sx={{
-                  fontSize: '25px',
-                  float: 'left',
-                  margin: '5px',
-
-                }}>
-                  Reppo
-                </Button>
-                <TextField
-                  id="searchBar"
-                  label="Search For a User"
-                  variant="filled"
-                  color="secondary"
-                  sx={{
-                    width: '40%',
-                    float: 'center'
-                  }}/>
-                <IconButton aria-label="discord" sx={{
-                  height: "40px",
-                  width: "60px",
-                  float: "right",
-                  margin: '10px',
-                }}>
-                  <DiscordIcon color='secondary' />
-                </IconButton >
+                <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
+                    <Button variant="text" color='secondary' sx={{
+                        fontSize: '25px',
+                        float: 'left',
+                        margin: '5px',
+                    }}>
+                      Reppo
+                    </Button>
+                    <TextField
+                        id="searchBar"
+                        label="Search For a User"
+                        variant="filled"
+                        color="secondary"
+                        sx={{
+                            width: '40%',
+                            float: 'center'
+                        }}/>
+                    <IconButton aria-label="discord" sx={{
+                        height: "40px",
+                        width: "60px",
+                        float: "right",
+                        margin: '10px',
+                    }}>
+                      <DiscordIcon color='secondary' />
+                    </IconButton >
                 </Toolbar>
             </AppBar>
         );
     }
 }
-
-export default Header;
