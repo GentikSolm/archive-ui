@@ -4,26 +4,19 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { ReactComponent as DiscordIcon} from '../icons/Discord-Logo-White.svg';
 import TextField from '@mui/material/TextField';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 
 class Header extends React.Component {
     render() {
         return (
-            <Paper elevation={3} sx={{
-              bgcolor: 'background.default',
-              lineHeight: '10%',
-              minWidth: '100%',
-              height: 60,
-              gap: 2,
-              textAlign: "center",
-              padding: '5px',
-              display: 'inline-block',
-            }}>
-              <form className="search" noValidate autoComplete="off">
+            <AppBar>
+            <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
                 <Button variant="text" color='secondary' sx={{
                   fontSize: '25px',
                   float: 'left',
                   margin: '5px',
-                  
+
                 }}>
                   Reppo
                 </Button>
@@ -44,8 +37,8 @@ class Header extends React.Component {
                 }}>
                   <DiscordIcon color='secondary' />
                 </IconButton >
-              </form>
-            </Paper>
+                </Toolbar>
+            </AppBar>
         );
     }
 }

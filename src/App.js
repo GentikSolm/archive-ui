@@ -1,32 +1,26 @@
 import * as React from "react";
 import './App.css';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { createTheme, ThemeProvider} from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 
 import Leaderboard from './assets/components/Leaderboard';
 import Header from './assets/components/Header';
 
-const darkTheme = createTheme({ palette: { mode: 'dark' } });
-const lightTheme = createTheme({ palette: { mode: 'light' } });
 
 class App extends React.Component {
   render() {
+    const darkTheme = createTheme({ palette: { mode: 'dark' } });
+    const lightTheme = createTheme({ palette: { mode: 'light' } });
     return (
-      <div className="App">
         <ThemeProvider theme={darkTheme}>
-          <header className="App-header">
-            <Header />
-          </header>
+        <Header />
           <Paper elevation={1} sx={{
             height: '100%',
             padding: '10%',
           }}>
-            <body>
-              <Leaderboard />
-            </body>
+          <Leaderboard />
           </Paper>
         </ThemeProvider>
-      </div>
     );
   }
 }
