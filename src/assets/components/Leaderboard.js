@@ -7,26 +7,66 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
-function createData(name, points) {
-  return { name, points };
+const token = 'ODUyNTg5NTgyNzMzNTQxNDE2.YMJB7A.hyJggPbGYRWsIuE-z8zIyRlBPY4';
+
+const fetchUser = async id => {
+  const response = await fetch(`https://discord.com/api/v9/users/${id}`, {
+      headers: {
+          Authorization: `Bot ${token}`
+      }
+  })
+  if (!response.ok) throw new Error(`Error status code: ${response.status}`)
+  return JSON.parse(await response.json())
 }
 
-const rows = [
-  createData("name", "points"),
-  createData("name", "points"),
-  createData("name", "points"),
-  createData("name", "points"),
-  createData("name", "points"),
-];
-
 export default class Leaderboard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            users: [],
+            limit: 10,
+            offset: 0,
+            isLoaded: false,
+        };
+    }
+
+    componentDidMount() {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      myHeaders.append("Authorization", `Bearer ${"abcde"}`);
+      
+      fetch("http://localhost:3301/graphql", {
+        method: 'POST',
+        headers: myHeaders,
+        body: JSON.stringify({
+          query: `query ExampleQuery {
+                    users {
+                      user_id,
+                      rep
+                    }
+                  }`,
+          // variables: {"userId":"109314596484939776"}
+        }),
+        redirect: 'follow'
+      })
+      .then(response => response.json())
+      .then(result => {
+          this.setState({
+              isLoaded: true,
+              users: result.data.users
+          });
+      });
+    }
+
     render() {
+        let users = this.state.users.slice(this.state.offset, this.state.limit);
         return (
             <React.Fragment>
                 <TableContainer component={Paper} align='center' elevation={3}>
                     <Table align='center'>
                         <TableHead>
                             <TableRow>
+                                <TableCell />
                                 <TableCell align="left" sx={{
                                     color: "#5865F2",
                                     }}>Rank</TableCell>
@@ -35,34 +75,23 @@ export default class Leaderboard extends React.Component {
                                     }}>Name</TableCell>
                                 <TableCell align="left" sx={{
                                     color: "#5865F2",
-                                    }}>Points</TableCell>
+                                    }}>Rep</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow>
-                                <TableCell component="th" >{1}</TableCell>
-                                <TableCell align="left">{"First place!"}</TableCell>
-                                <TableCell align="left">{"100,000,001"}</TableCell>
-                                </TableRow>
-                            <TableRow>
-                                <TableCell component="th" >{2}</TableCell>
-                                <TableCell align="left">{"Second place!!"}</TableCell>
-                                <TableCell align="left">{"588,2353"}</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell component="th" >{3}</TableCell>
-                                <TableCell align="left">{"Third place!"}</TableCell>
-                                <TableCell align="left">{"17"}</TableCell>
-                            </TableRow>
-                            {rows.map((row, index) => (
+                            {
+                            users.sort((a, b) => b.rep - a.rep).map((user, index) => (
                             <TableRow
                                 key={index}
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                                <TableCell component="th" scope="row">
-                                {index + 4}
+                                <TableCell>
+                                {}
                                 </TableCell>
-                                <TableCell align="left">{row.name}</TableCell>
-                                <TableCell align="left">{row.points}</TableCell>
+                                <TableCell component="th" scope="user">
+                                {index + 1}
+                                </TableCell>
+                                <TableCell align="left">{user.user_id}</TableCell>
+                                <TableCell align="left">{user.rep}</TableCell>
                             </TableRow>
                             ))}
                         </TableBody>
