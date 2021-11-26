@@ -1,11 +1,9 @@
 import * as React from "react";
-import './App.css';
 import { createTheme, ThemeProvider} from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Box from "@mui/material/Box";
-import Leaderboard from './assets/components/Leaderboard';
-import Header from './assets/components/Header';
-import Profile from './assets/components/Profile';
+import Leaderboard from './Leaderboard';
+import Header from './Header';
 
 export default class App extends React.Component {
     constructor(props){
@@ -25,8 +23,8 @@ export default class App extends React.Component {
                 <Box
                 sx={{
                     backgroundColor: "background.default",
-                    width: '100vw',
-                    height: '100vh',
+                    width: '99vw',
+                    height: '99vh',
                     position: 'absolute'
                 }}>
                 <Header
