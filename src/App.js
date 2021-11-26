@@ -1,6 +1,5 @@
 import * as React from "react";
 import { createTheme, ThemeProvider} from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import Box from "@mui/material/Box";
 import Leaderboard from './Leaderboard';
 import Header from './Header';
