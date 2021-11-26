@@ -5,12 +5,14 @@ import Paper from '@mui/material/Paper';
 import Box from "@mui/material/Box";
 import Leaderboard from './assets/components/Leaderboard';
 import Header from './assets/components/Header';
+import Profile from './assets/components/Profile';
 
 export default class App extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            isDark: true
+            isDark: true,
+            isProfile: false
         }
     }
     handleSwitchChange = () =>{
@@ -39,7 +41,7 @@ export default class App extends React.Component {
                     paddingTop: 2
 
                 }}>
-                    <Leaderboard />
+                    {(!this.state.isProfile) ? <Leaderboard /> : <Profile />}
                 </Paper>
                 </Box>
             </ThemeProvider>

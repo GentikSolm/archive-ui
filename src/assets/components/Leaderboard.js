@@ -19,31 +19,31 @@ export default class Leaderboard extends React.Component {
     }
 
     componentDidMount() {
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("Authorization", `Bearer ${"abcde"}`);
-      
-      fetch("http://localhost:3301/graphql", {
-        method: 'POST',
-        headers: myHeaders,
-        body: JSON.stringify({
-          query: `query ExampleQuery {
-                    users {
-                      user_id,
-                      rep
-                    }
-                  }`,
-          // variables: {"userId":"109314596484939776"}
-        }),
-        redirect: 'follow'
-      })
-      .then(response => response.json())
-      .then(result => {
-          this.setState({
-              isLoaded: true,
-              users: result.data.users
-          });
-      });
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", `Bearer ${"abcde"}`);
+        
+        fetch("http://localhost:3301/graphql", {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({
+                query: `query ExampleQuery {
+                            users {
+                            user_id,
+                            rep
+                            }
+                        }`,
+                // variables: {"userId":"109314596484939776"}
+            }),
+            redirect: 'follow'
+        })
+        .then(response => response.json())
+        .then(result => {
+                this.setState({
+                    isLoaded: true,
+                    users: result.data.users
+                });
+        });
     }
 
     render() {
