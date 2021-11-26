@@ -23,7 +23,7 @@ export default class Leaderboard extends React.Component {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", `Bearer ${"abcde"}`);
-        
+
         fetch("http://localhost:3301/graphql", {
             method: 'POST',
             headers: myHeaders,
@@ -57,13 +57,16 @@ export default class Leaderboard extends React.Component {
                             <TableRow>
                                 <TableCell />
                                 <TableCell align="left" sx={{
-                                    color: "#5865F2",
+                                    color: "text.head",
+                                    fontWeight: 'bold'
                                     }}>Rank</TableCell>
                                 <TableCell align="left" sx={{
-                                    color: "#5865F2",
+                                    color: "text.head",
+                                    fontWeight: 'bold'
                                     }}>Name</TableCell>
                                 <TableCell align="left" sx={{
-                                    color: "#5865F2",
+                                    color: "text.head",
+                                    fontWeight: 'bold'
                                     }}>Rep</TableCell>
                             </TableRow>
                         </TableHead>
@@ -75,7 +78,7 @@ export default class Leaderboard extends React.Component {
                                 hover
                                 onClick={(event) => this.props.callback(user.user_id)}
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                                
+
                                 <TableCell>{}</TableCell>
                                 <TableCell component="th" scope="user">{index + 1}</TableCell>
                                 <TableCell align="left">{user.user_id}</TableCell>

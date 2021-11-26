@@ -29,19 +29,30 @@ export default class App extends React.Component {
             selectedID: ""
         })
     }
-    componentDidMount() {
-        document.body.style.background = "#2c2f33";
-    }
     render() {
+        document.body.style.background = (this.state.isDark ? "#2c2f33": "#FFFFFF");
         const theme = createTheme({
-            palette: {
-                mode: (this.state.isDark ? "dark": "light"),
+            palette: this.state.isDark ? ({
+                // Dark
+                mode: "dark",
                 background: {
                     default: "#2c2f33",
                     paper: "#2c2f33"
-                }
-        }
-});
+                },
+                text: {
+                    head: "#FFFFFF",
+                },
+            }):({
+                //Light
+                mode: "light",
+                background: {
+                    default: "#FFFFFF",
+                    paper: '#FFFFFF'
+                },
+                text: {
+                    head: "#000000"
+                },
+        })});
         return (
             <ThemeProvider theme={theme}>
                 <Box
