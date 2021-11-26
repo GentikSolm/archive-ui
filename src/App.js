@@ -33,14 +33,22 @@ export default class App extends React.Component {
         document.body.style.background = "#2c2f33";
     }
     render() {
-        const theme = createTheme({ palette: { mode: (this.state.isDark ? "dark": "light") } });
+        const theme = createTheme({
+            palette: {
+                mode: (this.state.isDark ? "dark": "light"),
+                background: {
+                    default: "#2c2f33",
+                    paper: "#2c2f33"
+                }
+        }
+});
         return (
             <ThemeProvider theme={theme}>
                 <Box
                 sx={{
                     backgroundColor: "background.default",
-                    width: '98vw',
-                    height: '98vh',
+                    width: '99vw',
+                    height: '99vh',
                     position: 'absolute'
                 }}>
                 <Header
@@ -48,8 +56,8 @@ export default class App extends React.Component {
                 returnToLeaderboard={this.returnToLeaderboard}
                 checkBox={this.state.isDark}
                  />
-                <Paper elevation={1} sx={{
-                    marginTop: 8,
+                <Box sx={{
+                    marginTop: 7,
                     paddingLeft: 10,
                     paddingRight: 10,
                     paddingBottom: 2,
@@ -57,7 +65,7 @@ export default class App extends React.Component {
 
                 }}>
                     {(!this.state.isProfile) ? <Leaderboard callback = {this.userSelectCallback} /> : <Profile userID = {this.state.selectedID}/>}
-                </Paper>
+                </Box>
                 </Box>
             </ThemeProvider>
         );
