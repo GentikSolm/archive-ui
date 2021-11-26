@@ -7,18 +7,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
-const token = 'ODUyNTg5NTgyNzMzNTQxNDE2.YMJB7A.hyJggPbGYRWsIuE-z8zIyRlBPY4';
-
-const fetchUser = async id => {
-  const response = await fetch(`https://discord.com/api/v9/users/${id}`, {
-      headers: {
-          Authorization: `Bot ${token}`
-      }
-  })
-  if (!response.ok) throw new Error(`Error status code: ${response.status}`)
-  return JSON.parse(await response.json())
-}
-
 export default class Leaderboard extends React.Component {
     constructor(props) {
         super(props);
