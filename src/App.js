@@ -39,7 +39,7 @@ export default class App extends React.Component {
                     paddingTop: 2
 
                 }}>
-                    {(!this.state.isProfile) ? <Leaderboard /> : <Profile />}
+                    {(!this.state.isProfile) ? <Leaderboard /> : <Leaderboard />}
                 </Paper>
                 </Box>
             </ThemeProvider>
