@@ -43,11 +43,15 @@ export default class Header extends React.Component {
         return (
             <AppBar>
                 <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
-                    <Button variant="text" color='secondary' sx={{
-                        fontSize: '25px',
-                        float: 'left',
-                        margin: '5px',
-                    }}>
+                    <Button 
+                        variant="text" 
+                        color='secondary' 
+                        sx={{
+                            fontSize: '25px',
+                            float: 'left',
+                            margin: '5px',
+                        }}
+                        onClick={this.props.returnToLeaderboard}>
                       Reppo
                     </Button>
                     <TextField

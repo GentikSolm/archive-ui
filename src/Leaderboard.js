@@ -15,6 +15,7 @@ export default class Leaderboard extends React.Component {
             limit: 10,
             offset: 0,
             isLoaded: false,
+            selectedID: "",
         };
     }
 
@@ -71,13 +72,12 @@ export default class Leaderboard extends React.Component {
                             users.sort((a, b) => b.rep - a.rep).map((user, index) => (
                             <TableRow
                                 key={index}
+                                hover
+                                onClick={(event) => this.props.callback(user.user_id)}
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                                <TableCell>
-                                {}
-                                </TableCell>
-                                <TableCell component="th" scope="user">
-                                {index + 1}
-                                </TableCell>
+                                
+                                <TableCell>{}</TableCell>
+                                <TableCell component="th" scope="user">{index + 1}</TableCell>
                                 <TableCell align="left">{user.user_id}</TableCell>
                                 <TableCell align="left">{user.rep}</TableCell>
                             </TableRow>
