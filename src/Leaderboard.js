@@ -54,7 +54,9 @@ export default class Leaderboard extends React.Component {
                 <TableContainer component={Paper} align='center' elevation={3}>
                     <Table align='center'>
                         <TableHead>
-                            <TableRow>
+                            <TableRow sx={{
+                                backgroundColor: "primary.main"
+                            }}>
                                 <TableCell />
                                 <TableCell align="left" sx={{
                                     color: "text.head",

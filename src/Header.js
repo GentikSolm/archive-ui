@@ -1,6 +1,7 @@
 import * as React from "react";
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import { createTheme, ThemeProvider} from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -38,6 +39,7 @@ export default class Header extends React.Component {
         this.setState({username: username, loggedIn: true, userAvatar: avatar, userId: id})
     }
     render() {
+        const searchTheme = createTheme({palette: {mode: "dark"}});
         return (
             <AppBar>
                 <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
@@ -52,15 +54,17 @@ export default class Header extends React.Component {
                         onClick={this.props.returnToLeaderboard}>
                       Reppo
                     </Button>
-                    <TextField
-                        id="searchBar"
-                        label="Search For a User"
-                        variant="filled"
-                        color="secondary"
-                        sx={{
-                            width: '40%',
-                            float: 'center'
-                        }}/>
+                    <ThemeProvider theme={searchTheme}>
+                        <TextField
+                            id="searchBar"
+                            label="Search For a User"
+                            variant="filled"
+                            color="secondary"
+                            sx={{
+                                width: '40%',
+                                float: 'center'
+                            }}/>
+                    </ThemeProvider>
                         <div style={{display: "flex", alignItems: "center"}}>
                         <FormControlLabel control={
                             <Switch

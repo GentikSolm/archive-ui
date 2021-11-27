@@ -38,6 +38,12 @@ export default class App extends React.Component {
                     default: "#2c2f33",
                     paper: "#2c2f33"
                 },
+                primary: {
+                    main: "#5865F2",
+                },
+                secondary: {
+                    main: "#FFFFFF",
+                },
                 text: {
                     head: "#FFFFFF",
                 },
@@ -48,8 +54,14 @@ export default class App extends React.Component {
                     default: "#FFFFFF",
                     paper: '#FFFFFF'
                 },
+                primary: {
+                    main: "#5865F2",
+                },
+                secondary: {
+                    main: "#FFFFFF",
+                },
                 text: {
-                    head: "#000000"
+                    head: "#000000",
                 },
         })});
         return (
