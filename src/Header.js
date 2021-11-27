@@ -9,6 +9,7 @@ import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
+import { getMyInfo } from "./generalUtils";
 
 export default class Header extends React.Component {
     constructor(props){
@@ -19,8 +20,10 @@ export default class Header extends React.Component {
             userAvatar: "",
             userId: ""
         }
+        this._isMounted = false;
     }
     async componentDidMount(){
+        this._isMounted = true;
         const fragment = new URLSearchParams(window.location.hash.slice(1));
         const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
 
@@ -29,14 +32,12 @@ export default class Header extends React.Component {
             return
         }
 
-        var res = await fetch('https://discord.com/api/users/@me', {
-            headers: {
-                authorization: `${tokenType} ${accessToken}`,
-            },
-        })
-        res = await res.json();
+        var res = await getMyInfo(tokenType, accessToken);
         const {username, avatar, id} = res;
         this.setState({username: username, loggedIn: true, userAvatar: avatar, userId: id})
+    }
+    componentWillUnmount(){
+        this._isMounted = false;
     }
     render() {
         const searchTheme = createTheme({palette: {mode: "dark", secondary: {main: "#FFFFFF"}}});

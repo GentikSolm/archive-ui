@@ -87,7 +87,7 @@ export default class App extends React.Component {
                     paddingTop: 2
 
                 }}>
-                    {(!this.state.isProfile) ? <Leaderboard userSelect = {this.userSelectCallback} /> : <Profile userID = {this.state.selectedID}/>}
+                    {(!this.state.isProfile) ? <Leaderboard userSelect = {this.userSelectCallback} /> : <Profile userID={this.state.selectedID} isDark={this.state.isDark} />}
                 </Box>
                 </Box>
             </ThemeProvider>
