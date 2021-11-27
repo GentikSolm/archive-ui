@@ -1,42 +1,36 @@
 import * as React from "react";
 import Paper from '@mui/material/Paper';
+import { getUserinfo } from "./generalUtils";
 
 class Profile extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         userID: "test"
-    //     };
-    // };
-    
-    //https://cdn.discordapp.com/avatars/USERID/FILENAME.jpg
+    constructor(props) {
+        super(props);
+        this.state = {
+            
+        };
+        this._isMounted = false;
+    };
 
-    componentDidMount() {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", `Bearer ${"abcde"}`);
-        
-        fetch("http://localhost:3301/graphql", {
-            method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify({
-                query: `query ExampleQuery($userId: ID!) {
-                            user(user_id: $userId) {
-                            user_id,
-                            rep
-                            }
-                        }`,
-                variables: {"userId":"109314596484939776"}
-            }),
-            redirect: 'follow'
-        })
-        .then(response => response.json())
-        .then(result => {
-                this.setState({
-                    isLoaded: true,
-                    user: result.data.user
-                });
-        });
+    // https://cdn.discordapp.com/avatars/USERID/FILENAME.jpg
+
+    async componentDidMount() {
+        this._isMounted = true;
+
+        var result = await getUserinfo(this.props.userID)
+        if(result){
+            this._isMounted && this.setState({
+                user: result.data.user
+            });
+        }
+        else{
+            this._isMounted && this.setState({
+                error: "Error loading users!"
+            })
+        }
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     render() {
@@ -56,9 +50,9 @@ class Profile extends React.Component {
                 </clipPath>
                 </defs>
                 </svg>
-                <h2>{this.state.user.user_id}</h2>
+                <h2>{this.props.user_id}</h2>
                 <br/>
-                <p>rep: {this.state.user.rep}</p>
+                {/* <p>rep: {this.state.user.rep}</p> */}
 
             </Paper>
         );

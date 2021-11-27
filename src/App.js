@@ -76,6 +76,7 @@ export default class App extends React.Component {
                 <Header
                 handleSwitchChange={this.handleSwitchChange}
                 returnToLeaderboard={this.returnToLeaderboard}
+                userSelect={this.userSelectCallback}
                 checkBox={this.state.isDark}
                  />
                 <Box sx={{
@@ -86,7 +87,7 @@ export default class App extends React.Component {
                     paddingTop: 2
 
                 }}>
-                    {(!this.state.isProfile) ? <Leaderboard callback = {this.userSelectCallback} /> : <Profile userID = {this.state.selectedID}/>}
+                    {(!this.state.isProfile) ? <Leaderboard userSelect = {this.userSelectCallback} /> : <Profile userID = {this.state.selectedID}/>}
                 </Box>
                 </Box>
             </ThemeProvider>

@@ -39,7 +39,7 @@ export default class Header extends React.Component {
         this.setState({username: username, loggedIn: true, userAvatar: avatar, userId: id})
     }
     render() {
-        const searchTheme = createTheme({palette: {mode: "dark"}});
+        const searchTheme = createTheme({palette: {mode: "dark", secondary: {main: "#FFFFFF"}}});
         return (
             <AppBar>
                 <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
@@ -77,12 +77,15 @@ export default class Header extends React.Component {
                                     <Typography>
                                         Hello {this.state.username}
                                     </Typography>
-                                    <IconButton aria-label="discord" sx={{
-                                        height: "40px",
-                                        width: "60px",
-                                        float: "right",
-                                        margin: '10px',
-                                    }}>
+                                    <IconButton 
+                                        aria-label="discord" 
+                                        onClick={(event) => this.props.userSelect(this.state.userId)}
+                                        sx={{
+                                            height: "40px",
+                                            width: "40px",
+                                            float: "right",
+                                            margin: '10px',
+                                        }}>
                                     <Avatar alt={this.state.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${this.state.userId}/${this.state.userAvatar}.png?size=480`}/>
                                     </IconButton >
                                 </React.Fragment>
