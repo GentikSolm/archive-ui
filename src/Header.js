@@ -1,14 +1,18 @@
 import * as React from "react";
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import { createTheme, ThemeProvider} from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
+import {
+    IconButton,
+    Button,
+    TextField,
+    AppBar,
+    Toolbar,
+    Switch,
+    FormControlLabel,
+    Typography,
+    Avatar,
+} from '@mui/material';
+
+
 import { getMyInfo } from "./generalUtils";
 
 export default class Header extends React.Component {

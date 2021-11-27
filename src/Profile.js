@@ -1,7 +1,9 @@
 import * as React from "react";
-import Paper from '@mui/material/Paper';
 import { getUserInfo } from "./generalUtils";
-import Typography from '@mui/material/Typography';
+import {
+    Typography,
+    Paper,
+} from '@mui/material';
 
 class Profile extends React.Component {
     constructor(props) {
