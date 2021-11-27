@@ -9,8 +9,9 @@ import {
     TableHead,
     Typography,
     Button,
+    Avatar,
 } from '@mui/material';
-import {getTopUsers} from './generalUtils.js'
+import {getTopUsers, validAvatar} from './generalUtils.js'
 
 export default class Leaderboard extends React.Component {
     constructor(props) {
@@ -52,13 +53,13 @@ export default class Leaderboard extends React.Component {
             <Paper elevation={5}>
             {isUsers ? (
                 <React.Fragment>
-                    <TableContainer align='center' elevation={3}>
+                    <TableContainer align='center'>
                         <Table align='center'>
                             <TableHead>
                                 <TableRow sx={{
                                     backgroundColor: "primary.main"
                                 }}>
-                                    <TableCell />
+                                    <TableCell sx={{width: 5}} />
                                     <TableCell align="left" sx={{
                                         color: "text.head",
                                         fontWeight: 'bold'
@@ -82,16 +83,26 @@ export default class Leaderboard extends React.Component {
                                     onClick={(event) => this.props.userSelect(user.user_id)}
                                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 
-                                    <TableCell>{}</TableCell>
-                                    <TableCell component="th" scope="user">{index + 1}</TableCell>
-                                    <TableCell align="left">{user.user_id}</TableCell>
+                                    <TableCell align="left"><Avatar alt={this.state.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${user.user_id}/${user.avatar}?size=480`}/></TableCell>
+                                    <TableCell align="left">{index + 1}</TableCell>
+                                    <TableCell align="left">{user.username}</TableCell>
                                     <TableCell align="left">{user.rep}</TableCell>
                                 </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Button>poopass</Button>
+                    {this.state.indexLimiter > 10 ? (
+                        <Button variant="outlined">view 5 less</Button>
+                    ): (<div></div>)}
+                    <Button 
+                        variant="contained" 
+                        onClick={(event) => {this.state.indexLimiter = this.state.indexLimiter + 5}}
+                        sx={{
+                            margin: 2
+                        }}>
+                            view 5 more
+                    </Button>
                 </React.Fragment>
             ):(
                 <Typography variant="h2" sx={{display: 'flex', justifyContent: 'center', margin: 2, padding: 3}}>

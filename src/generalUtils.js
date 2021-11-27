@@ -10,7 +10,9 @@ export async function getTopUsers(){
                 query: `query ExampleQuery {
                     users {
                         user_id,
-                        rep
+                        rep,
+                        username,
+                        avatar
                     }
                 }`,
                 // variables: {"userId":"109314596484939776"}
@@ -40,7 +42,10 @@ export async function getUserInfo(userId){
                 query: `query ExampleQuery($userId: ID!) {
                             user(user_id: $userId) {
                             user_id,
-                            rep
+                            rep,
+                            username,
+                            avatar,
+                            bio
                             }
                         }`,
                 variables: {"userId":userId}
@@ -77,4 +82,23 @@ export async function getMyInfo(tokenType, accessToken){
     catch (e){
         return undefined;
     }
+}
+
+export function validAvatar(url) {
+    var request = new XMLHttpRequest();  
+    request.open('GET', url, true);
+    request.onreadystatechange = function(){
+        if (request.readyState === 4){
+            if (request.status === 415) {  
+                return false;
+            }  
+        }
+    };
+    return true;
+    // try {
+    //     var testUrl = new URL(url);
+    // } catch (_) {
+    //     return false;  
+    // }
+    // return true;
 }

@@ -80,11 +80,12 @@ export default class App extends React.Component {
                 checkBox={this.state.isDark}
                  />
                 <Box sx={{
-                    marginTop: 7,
-                    paddingLeft: 10,
-                    paddingRight: 10,
+                    marginTop: 10,
+                    paddingLeft: 15,
+                    paddingRight: 15,
                     paddingBottom: 2,
-                    paddingTop: 2
+                    paddingTop: 2,
+                    justifyContent: "center",
 
                 }}>
                     {(!this.state.isProfile) ? <Leaderboard userSelect = {this.userSelectCallback} /> : <Profile userID={this.state.selectedID} isDark={this.state.isDark} />}

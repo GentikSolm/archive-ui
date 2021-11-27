@@ -91,7 +91,7 @@ export default class Header extends React.Component {
                                             float: "right",
                                             margin: '10px',
                                         }}>
-                                    <Avatar alt={this.state.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${this.state.userId}/${this.state.userAvatar}.png?size=480`}/>
+                                    <Avatar alt={this.state.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${this.state.userId}/${this.state.userAvatar}?size=480`}/>
                                     </IconButton >
                                 </React.Fragment>
                             ):(
