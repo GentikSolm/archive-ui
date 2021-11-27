@@ -6,52 +6,48 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Typography from '@mui/material/Typography';
+import {getTopUsers} from './generalUtils.js'
 
 export default class Leaderboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: [],
+            users: undefined,
             limit: 10,
             offset: 0,
-            isLoaded: false,
             selectedID: "",
+            error: "Loading..."
         };
+        this._isMounted = false;
     }
 
-    componentDidMount() {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", `Bearer ${"abcde"}`);
+    async componentDidMount() {
+        this._isMounted = true;
 
-        fetch("http://localhost:3301/graphql", {
-            method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify({
-                query: `query ExampleQuery {
-                            users {
-                            user_id,
-                            rep
-                            }
-                        }`,
-                // variables: {"userId":"109314596484939776"}
-            }),
-            redirect: 'follow'
-        })
-        .then(response => response.json())
-        .then(result => {
-                this.setState({
-                    isLoaded: true,
-                    users: result.data.users
-                });
-        });
+        var result = await getTopUsers()
+        if(result){
+            this._isMounted && this.setState({
+                users: result.data.users
+            });
+        }
+        else{
+            this._isMounted && this.setState({
+                error: "Error loading users!"
+            })
+        }
+    }
+    componentWillUnmount(){
+        this._isMounted = false;
     }
 
     render() {
-        let users = this.state.users.slice(this.state.offset, this.state.limit);
+        const isUsers = !(this.state.users == undefined)
         return (
-            <React.Fragment>
-                <TableContainer component={Paper} align='center' elevation={3}>
+            <Paper>
+            {isUsers ? (
+
+                <TableContainer align='center' elevation={3}>
                     <Table align='center'>
                         <TableHead>
                             <TableRow sx={{
@@ -74,7 +70,7 @@ export default class Leaderboard extends React.Component {
                         </TableHead>
                         <TableBody>
                             {
-                            users.sort((a, b) => b.rep - a.rep).map((user, index) => (
+                            this.state.users.sort((a, b) => b.rep - a.rep).map((user, index) => (
                             <TableRow
                                 key={index}
                                 hover
@@ -90,7 +86,13 @@ export default class Leaderboard extends React.Component {
                         </TableBody>
                     </Table>
                 </TableContainer>
-            </React.Fragment>
+            ):(
+                <Typography variant="h2" sx={{display: 'flex', justifyContent: 'center', margin: 2, padding: 3}}>
+                    {this.state.error}
+                </Typography>
+
+            )}
+            </Paper>
         );
     }
 }
