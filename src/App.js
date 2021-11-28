@@ -69,8 +69,8 @@ export default class App extends React.Component {
                 <Box
                 sx={{
                     backgroundColor: "background.default",
-                    width: '99vw',
-                    height: '99vh',
+                    width: '98vw',
+                    height: '98vh',
                     position: 'absolute'
                 }}>
                 <Header
