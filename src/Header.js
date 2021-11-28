@@ -42,7 +42,7 @@ export default class Header extends React.Component {
         const {username, avatar, id} = res;
 
         res = await login(id);
-        const {user_id, token, expiration} = res;
+        const {user_id, token, expiration} = res.data.login;
         //TODO: change expiration to timestamp
         this.setState({username: username, loggedIn: true, userAvatar: avatar, userId: user_id, token: token, expiration: expiration}); 
         this.props.updateInfo(expiration, token, user_id);
