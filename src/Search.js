@@ -34,15 +34,18 @@ export default class Search extends React.Component {
     }
 
     render() {
+        const users = (this.state.users === undefined ? [{username: "Select...", value: -1}]: this.state.users)
         return (
             <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={this.state.users}
+            options={users}
+            getOptionLabel={(option)=> option.username}
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label={this.props.label} />}
+            onChange={()=>console.log("clicked")}
             />
-            
+
         )
     };
 }

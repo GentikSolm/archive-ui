@@ -4,17 +4,21 @@ import Box from "@mui/material/Box";
 import Leaderboard from './Leaderboard';
 import Header from './Header';
 import Profile from './Profile';
+import PageContext from './PageContext';
 
 export default class App extends React.Component {
     constructor(props){
         super(props)
-        this.state={
-            isDark: true,
-            isProfile: false
+        this.toggleTheme = () => {
+            this.setState({isDark: !this.state.isDark})
         }
-    }
-    handleSwitchChange = () =>{
-        this.setState({isDark: !this.state.isDark})
+        this.state={
+            toggleTheme: this.toggleTheme,
+            isDark: true,
+            isProfile: false,
+            loginId: undefined,
+            selectedID: undefined
+        }
     }
     userSelectCallback = (userID) => {
         this.setState({
@@ -65,6 +69,7 @@ export default class App extends React.Component {
                 },
         })});
         return (
+            <PageContext.Provider value={this.state}>
             <ThemeProvider theme={theme}>
                 <Box
                 sx={{
@@ -74,10 +79,8 @@ export default class App extends React.Component {
                     position: 'absolute'
                 }}>
                 <Header
-                handleSwitchChange={this.handleSwitchChange}
                 returnToLeaderboard={this.returnToLeaderboard}
                 userSelect={this.userSelectCallback}
-                checkBox={this.state.isDark}
                  />
                 <Box sx={{
                     marginTop: 7,
@@ -92,6 +95,7 @@ export default class App extends React.Component {
                 </Box>
                 </Box>
             </ThemeProvider>
+            </PageContext.Provider>
         );
     }
 }

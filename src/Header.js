@@ -3,7 +3,6 @@ import { createTheme, ThemeProvider} from '@mui/material/styles';
 import {
     IconButton,
     Button,
-    TextField,
     AppBar,
     Toolbar,
     Switch,
@@ -12,7 +11,7 @@ import {
     Avatar,
 } from '@mui/material';
 import Search from "./Search"
-
+import PageContext from './PageContext';
 
 import { getMyInfo } from "./generalUtils";
 
@@ -65,19 +64,23 @@ export default class Header extends React.Component {
                             label="Search For a User"/>
                     </ThemeProvider>
                         <div style={{display: "flex", alignItems: "center"}}>
-                        <FormControlLabel control={
-                            <Switch
-                                checked={this.props.checkBox}
-                                onChange={this.props.handleSwitchChange}
+                        <PageContext.Consumer>
+                        {({theme, toggleTheme}) => (
+                            <FormControlLabel control={
+                                <Switch
+                                checked={theme}
+                                onChange={toggleTheme}
                                 />}
-                            label="Dark Theme"/>
+                                label="Dark Theme"/>
+                        )}
+                        </PageContext.Consumer>
                             {this.state.loggedIn ? (
                                 <React.Fragment>
                                     <Typography>
                                         Hello {this.state.username}
                                     </Typography>
-                                    <IconButton 
-                                        aria-label="discord" 
+                                    <IconButton
+                                        aria-label="discord"
                                         onClick={(event) => this.props.userSelect(this.state.userId)}
                                         sx={{
                                             height: "40px",
