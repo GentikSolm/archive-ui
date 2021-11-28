@@ -65,10 +65,10 @@ export default class Header extends React.Component {
                     </ThemeProvider>
                         <div style={{display: "flex", alignItems: "center"}}>
                         <PageContext.Consumer>
-                        {({theme, toggleTheme}) => (
+                        {({isDark, toggleTheme}) => (
                             <FormControlLabel control={
                                 <Switch
-                                checked={theme}
+                                checked={isDark}
                                 onChange={toggleTheme}
                                 />}
                                 label="Dark Theme"/>
