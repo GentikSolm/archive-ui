@@ -13,7 +13,7 @@ import {
 import Search from "./Search"
 import PageContext from './PageContext';
 
-import { getMyInfo } from "./generalUtils";
+import { getMyInfo, login } from "./generalUtils";
 
 export default class Header extends React.Component {
     constructor(props){
@@ -22,7 +22,9 @@ export default class Header extends React.Component {
             loggedIn: 0,
             username: "",
             userAvatar: "",
-            userId: ""
+            userId: "",
+            token: "",
+            expiration: "",
         }
         this._isMounted = false;
     }
@@ -38,7 +40,12 @@ export default class Header extends React.Component {
 
         var res = await getMyInfo(tokenType, accessToken);
         const {username, avatar, id} = res;
-        this.setState({username: username, loggedIn: true, userAvatar: avatar, userId: id})
+
+        res = await login(id);
+        const {user_id, token, expiration} = res;
+        //TODO: change expiration to timestamp
+        this.setState({username: username, loggedIn: true, userAvatar: avatar, userId: user_id, token: token, expiration: expiration}); 
+        this.props.updateInfo(expiration, token, user_id);
     }
     componentWillUnmount(){
         this._isMounted = false;
@@ -115,7 +122,6 @@ export default class Header extends React.Component {
 
                                 </React.Fragment>
                             )}
-
                     </div>
                 </Toolbar>
             </AppBar>

@@ -15,13 +15,19 @@ export default class App extends React.Component {
         this.changeId = (id) => {
             this.setState({selectedID: id})
         }
+        this.setLoginInfo = (expiration, token, id) => {
+            this.setState({expiration: expiration, token: token, loginId: id})
+        }
         this.state={
+            setLoginInfo: this.setLoginInfo,
             changeId: this.changeId,
             toggleTheme: this.toggleTheme,
             isDark: true,
             isProfile: false,
             loginId: undefined,
-            selectedID: undefined
+            selectedID: undefined,
+            token: undefined,
+            expiration: undefined,
         }
     }
     userSelectCallback = (userID) => {
@@ -82,11 +88,16 @@ export default class App extends React.Component {
                     height: '98vh',
                     position: 'absolute'
                 }}>
-                <Header
-                returnToLeaderboard={this.returnToLeaderboard}
-                userSelect={this.userSelectCallback}
-                 />
-                <Box sx={{
+                <PageContext.Consumer>
+                    {({setLoginInfo})=>(
+                    <Header
+                    returnToLeaderboard={this.returnToLeaderboard}
+                    updateInfo={setLoginInfo}
+                    userSelect={this.userSelectCallback}
+                    />
+                    )}
+                 </PageContext.Consumer>
+                 <Box sx={{
                     marginTop: 7,
                     paddingLeft: 15,
                     paddingRight: 15,
