@@ -99,7 +99,7 @@ export default class UserTransactions extends React.Component {
                             </TableHead>
                             <TableBody>
                                 {
-                                this.state.transactions.sort((a, b) => b.rep - a.rep).slice(0, this.state.indexLimiter).map((transaction, index) => (
+                                this.state.transactions.sort((a, b) => b.time - a.time).slice(0, this.state.indexLimiter).map((transaction, index) => (
                                 <TableRow
                                     key={index}
                                     hover

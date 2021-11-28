@@ -10,6 +10,7 @@ import {
     FormControlLabel,
     Typography,
     Avatar,
+    Alert,
 } from '@mui/material';
 
 
@@ -92,6 +93,7 @@ export default class Header extends React.Component {
                                             margin: '10px',
                                         }}>
                                     <Avatar alt={this.state.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${this.state.userId}/${this.state.userAvatar}?size=480`}/>
+                                    {/* <Alert severity="success">This is a success alert — check it out!</Alert> */}
                                     </IconButton >
                                 </React.Fragment>
                             ):(
