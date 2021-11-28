@@ -51,7 +51,7 @@ export default class Leaderboard extends React.Component {
         return (
             <React.Fragment>
                 <div style={{display: 'flex', justifyContent: "center"}}>
-                    <Typography variant="h1" sx={{color: "white"}}>
+                    <Typography variant="h1" sx={{color: this.props.isDark ? "white" : 'black'}}>
                         Leaderboard
                     </Typography>
                 </div>
@@ -77,17 +77,17 @@ export default class Leaderboard extends React.Component {
                                             </svg>
                                         </TableCell>
                                         <TableCell align="left" sx={{
-                                            color: "text.head",
+                                            color: "white",
                                             fontWeight: 'bold',
                                             fontSize: '1.5rem'
                                         }}>Position</TableCell>
                                         <TableCell align="left" sx={{
-                                            color: "text.head",
+                                            color: "white",
                                             fontWeight: 'bold',
                                             fontSize: '1.5rem'
                                             }}>Name</TableCell>
                                         <TableCell align="left" sx={{
-                                            color: "text.head",
+                                            color: "white",
                                             fontWeight: 'bold',
                                             fontSize: '1.5rem'
                                             }}>Rep</TableCell>
