@@ -48,7 +48,10 @@ export default class UserTransactions extends React.Component {
 
     render() {
         const isUsers = !(this.state.transactions === undefined)
-        const indexLimiter = (isUsers && (this.state.transactions.length <= this.state.indexLimiter ? this.state.transactions.length : this.state.indexLimiter))
+        const useIndexLim = (isUsers && (this.state.transactions.length >= this.state.indexLimiter))
+        if(isUsers){
+            const indexLimiter = ((useIndexLim) ? this.state.indexLimiter : this.state.transactions.length)
+        }
         return (
             <Paper elevation={5}>
             {isUsers ? (
@@ -115,16 +118,16 @@ export default class UserTransactions extends React.Component {
                                         <TableCell align="left" sx={{fontWeight: "bold"}}>Set Rep for</TableCell>
                                     )}
                                     <TableUser userID={transaction.receiver} />
-                                    
-                                    
+
+
                                 </TableRow>
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
                     {this.state.indexLimiter > 10 ? (
-                        <Button 
-                            variant="contained" 
+                        <Button
+                            variant="contained"
                             onClick={(event) => {this.setState({indexLimiter: this.state.indexLimiter - 5})}}
                             sx={{
                                 margin: 2
@@ -132,9 +135,10 @@ export default class UserTransactions extends React.Component {
                                 view 5 less
                         </Button>
                     ): (<div></div>)}
-                    <Button 
-                        variant="contained" 
+                    <Button
+                        variant="contained"
                         onClick={(event) => {this.setState({indexLimiter: this.state.indexLimiter + 5})}}
+                        disabled={!useIndexLim}
                         sx={{
                             margin: 2
                         }}>
