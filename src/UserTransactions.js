@@ -75,6 +75,10 @@ export default class UserTransactions extends React.Component {
                                         color: "text.head",
                                         fontWeight: 'bold'
                                         }}>Sender</TableCell>
+                                    <TableCell align="left" sx={{
+                                        color: "text.head",
+                                        fontWeight: 'bold'
+                                        }}>Action</TableCell>
                                     <TableCell sx={{width: 30}}>
                                         <svg style={{marginTop: "10"}} width="30" height="30" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g clipPath="url(#clip0)">
@@ -91,10 +95,6 @@ export default class UserTransactions extends React.Component {
                                         color: "text.head",
                                         fontWeight: 'bold'
                                         }}>Receiver</TableCell>
-                                    <TableCell align="left" sx={{
-                                        color: "text.head",
-                                        fontWeight: 'bold'
-                                        }}>Type</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -107,14 +107,15 @@ export default class UserTransactions extends React.Component {
                                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 
                                     <TableUser userID={transaction.sender} />
-                                    <TableUser userID={transaction.receiver} />
                                     {transaction.action_id === '1' ? (
-                                        <TableCell align="left">Thank</TableCell>
+                                        <TableCell align="left" sx={{color: "#57F287", fontWeight: "bold"}}>Thanked</TableCell>
                                     ) : transaction.action_id === '2' ? (
-                                        <TableCell align="left">Curse</TableCell>
+                                        <TableCell align="left" sx={{color: "#ED4245", fontWeight: "bold"}}>Cursed</TableCell>
                                     ) : (
-                                        <TableCell align="left">Set Rep</TableCell>
+                                        <TableCell align="left" sx={{fontWeight: "bold"}}>Set Rep for</TableCell>
                                     )}
+                                    <TableUser userID={transaction.receiver} />
+                                    
                                     
                                 </TableRow>
                                 ))}
