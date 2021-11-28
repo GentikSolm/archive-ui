@@ -88,7 +88,7 @@ export default class App extends React.Component {
                     justifyContent: "center",
 
                 }}>
-                    {(!this.state.isProfile) ? <Leaderboard userSelect = {this.userSelectCallback} /> : <Profile userID={this.state.selectedID} isDark={this.state.isDark} />}
+                    {(!this.state.isProfile) ? <Leaderboard userSelect = {this.userSelectCallback} /> : <Profile userID={this.state.selectedID} isDark={this.state.isDark} userSelect = {this.userSelectCallback} />}
                 </Box>
                 </Box>
             </ThemeProvider>

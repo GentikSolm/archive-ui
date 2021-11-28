@@ -18,11 +18,9 @@ export default class Leaderboard extends React.Component {
         super(props);
         this.state = {
             users: undefined,
-            limit: 10,
-            offset: 0,
             selectedID: "",
             error: "Loading...",
-            indexLimiter: 10,
+            indexLimiter: 5,
         };
         this._isMounted = false;
     }
@@ -87,7 +85,7 @@ export default class Leaderboard extends React.Component {
                             </TableHead>
                             <TableBody>
                                 {
-                                this.state.users.sort((a, b) => b.rep - a.rep).slice(0, this.state.indexLimiter).map((user, index) => (
+                                this.state.users.sort((a, b) => b.rep - a.rep).slice(0, indexLimiter).map((user, index) => (
                                 <TableRow
                                     key={index}
                                     hover
@@ -103,7 +101,7 @@ export default class Leaderboard extends React.Component {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {this.state.indexLimiter > 10 ? (
+                    {this.state.indexLimiter > 5 ? (
                         <Button 
                             variant="contained" 
                             onClick={(event) => {this.setState({indexLimiter: this.state.indexLimiter - 5})}}

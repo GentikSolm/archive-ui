@@ -54,8 +54,8 @@ class User extends React.Component {
                         m: 0,
                       }}>
                         {
-                        this.state.games.sort((a, b) => b.game_name - a.game_name).map((game) => (
-                            <Chip label={game.game_name} size="small" sx={{margin: "2px"}} />
+                        this.state.games.sort((a, b) => b.game_name - a.game_name).map((game, index) => (
+                            <Chip key={index} label={game.game_name} size="small" sx={{margin: "2px"}} />
                         ))}
                     </Box>
                 ) : (
