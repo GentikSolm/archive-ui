@@ -45,7 +45,8 @@ export async function getUserInfo(userId){
                             rep,
                             username,
                             avatar,
-                            bio
+                            bio,
+                            total_trans
                             }
                         }`,
                 variables: {"userId":userId}
@@ -82,23 +83,4 @@ export async function getMyInfo(tokenType, accessToken){
     catch (e){
         return undefined;
     }
-}
-
-export function validAvatar(url) {
-    var request = new XMLHttpRequest();  
-    request.open('GET', url, true);
-    request.onreadystatechange = function(){
-        if (request.readyState === 4){
-            if (request.status === 415) {  
-                return false;
-            }  
-        }
-    };
-    return true;
-    // try {
-    //     var testUrl = new URL(url);
-    // } catch (_) {
-    //     return false;  
-    // }
-    // return true;
 }
