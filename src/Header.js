@@ -48,17 +48,21 @@ export default class Header extends React.Component {
         return (
             <AppBar>
                 <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
+                <PageContext.Consumer>
+                {({changeId}) => (
                     <Button
-                        variant="text"
-                        color='secondary'
-                        sx={{
-                            fontSize: '25px',
-                            float: 'left',
-                            margin: '5px',
-                        }}
-                        onClick={this.props.returnToLeaderboard}>
-                      Reppo
+                    variant="text"
+                    color='secondary'
+                    sx={{
+                        fontSize: '25px',
+                        float: 'left',
+                        margin: '5px',
+                    }}
+                    onClick={() => changeId(undefined)}>
+                    Reppo
                     </Button>
+                )}
+                    </PageContext.Consumer>
                     <ThemeProvider theme={searchTheme}>
                         <Search
                             label="Search For a User"/>

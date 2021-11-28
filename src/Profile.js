@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import UserTransactions from './UserTransactions';
 import UserGames from './UserGames';
+import PageContext from './PageContext';
 
 class Profile extends React.Component {
     constructor(props) {

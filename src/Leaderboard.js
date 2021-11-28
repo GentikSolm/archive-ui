@@ -98,22 +98,26 @@ export default class Leaderboard extends React.Component {
                                             }}>Rep</TableCell>
                                     </TableRow>
                                 </TableHead>
+                                <PageContext.Consumer>
+                                {({changeId})=> (
                                 <TableBody>
                                     {
                                     this.state.users.sort((a, b) => b.rep - a.rep).slice(0, indexLimiter).map((user, index) => (
-                                    <TableRow
+                                        <TableRow
                                         key={index}
                                         hover
-                                        onClick={(event) => this.props.userSelect(user.user_id)}
+                                        onClick={(event) => changeId(user.user_id)}
                                         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
 
                                         <TableCell align="left"><Avatar alt={this.state.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${user.user_id}/${user.avatar}?size=480`} sx={{width: 40, height: 40}}/></TableCell>
-                                        <TableCell align="left">{index + 1}</TableCell>
-                                        <TableCell align="left">{user.username}</TableCell>
-                                        <TableCell align="left">{user.rep}</TableCell>
-                                    </TableRow>
+                                            <TableCell align="left">{index + 1}</TableCell>
+                                            <TableCell align="left">{user.username}</TableCell>
+                                            <TableCell align="left">{user.rep}</TableCell>
+                                            </TableRow>
                                     ))}
                                 </TableBody>
+                            )}
+                            </PageContext.Consumer>
                             </Table>
                         </TableContainer>
                         {this.state.indexLimiter > 5 ? (

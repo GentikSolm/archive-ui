@@ -12,7 +12,11 @@ export default class App extends React.Component {
         this.toggleTheme = () => {
             this.setState({isDark: !this.state.isDark})
         }
+        this.changeId = (id) => {
+            this.setState({selectedID: id})
+        }
         this.state={
+            changeId: this.changeId,
             toggleTheme: this.toggleTheme,
             isDark: true,
             isProfile: false,
@@ -91,7 +95,7 @@ export default class App extends React.Component {
                     justifyContent: "center",
 
                 }}>
-                    {(!this.state.isProfile) ? <Leaderboard userSelect = {this.userSelectCallback} /> : <Profile userID={this.state.selectedID} isDark={this.state.isDark} userSelect = {this.userSelectCallback} />}
+                    {(this.state.selectedID === undefined) ? <Leaderboard /> : <Profile userID={this.state.selectedID} isDark={this.state.isDark} userSelect = {this.userSelectCallback} />}
                 </Box>
                 </Box>
             </ThemeProvider>
