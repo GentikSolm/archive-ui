@@ -72,12 +72,14 @@ export default class UserTransactions extends React.Component {
                                         </svg>
                                     </TableCell>
                                     <TableCell align="left" sx={{
-                                        color: "text.head",
-                                        fontWeight: 'bold'
+                                            color: "white",
+                                            fontWeight: 'bold',
+                                            fontSize: '1.5rem'
                                         }}>Sender</TableCell>
                                     <TableCell align="left" sx={{
-                                        color: "text.head",
-                                        fontWeight: 'bold'
+                                            color: "white",
+                                            fontWeight: 'bold',
+                                            fontSize: '1.5rem'
                                         }}>Action</TableCell>
                                     <TableCell sx={{width: 30}}>
                                         <svg style={{marginTop: "10"}} width="30" height="30" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,8 +94,9 @@ export default class UserTransactions extends React.Component {
                                         </svg>
                                     </TableCell>
                                     <TableCell align="left" sx={{
-                                        color: "text.head",
-                                        fontWeight: 'bold'
+                                            color: "white",
+                                            fontWeight: 'bold',
+                                            fontSize: '1.5rem'
                                         }}>Receiver</TableCell>
                                 </TableRow>
                             </TableHead>
