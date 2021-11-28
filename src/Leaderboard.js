@@ -45,8 +45,9 @@ export default class Leaderboard extends React.Component {
     }
 
     render() {
-        const isUsers = !(this.state.users === undefined)
-        const indexLimiter = (isUsers && (this.state.users.length <= this.state.indexLimiter ? this.state.users.length : this.state.indexLimiter))
+        const isUsers = !(this.state.users === undefined);
+        const useIndexLim = (isUsers && (this.state.users.length >= this.state.indexLimiter));
+        const indexLimiter = ((useIndexLim || !isUsers) ? this.state.indexLimiter : this.state.users.length);
         return (
             <Paper elevation={5}>
             {isUsers ? (
@@ -102,8 +103,8 @@ export default class Leaderboard extends React.Component {
                         </Table>
                     </TableContainer>
                     {this.state.indexLimiter > 5 ? (
-                        <Button 
-                            variant="contained" 
+                        <Button
+                            variant="contained"
                             onClick={(event) => {this.setState({indexLimiter: this.state.indexLimiter - 5})}}
                             sx={{
                                 margin: 2
@@ -111,9 +112,10 @@ export default class Leaderboard extends React.Component {
                                 view 5 less
                         </Button>
                     ): (<div></div>)}
-                    <Button 
-                        variant="contained" 
+                    <Button
+                        variant="contained"
                         onClick={(event) => {this.setState({indexLimiter: this.state.indexLimiter + 5})}}
+                        disabled={!useIndexLim}
                         sx={{
                             margin: 2
                         }}>
