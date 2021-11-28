@@ -16,6 +16,12 @@ class User extends React.Component {
         this._isMounted = false;
     };
 
+    componentDidUpdate(prevProps) {
+        if(this.props.userID !== prevProps.userID) {
+            this.componentDidMount()
+        }
+    }
+
     async componentDidMount() {
         this._isMounted = true;
 
