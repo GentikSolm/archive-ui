@@ -3,7 +3,9 @@ import { getUserInfo } from "./generalUtils";
 import {
     TableCell,
     Avatar,
+    IconButton,
 } from '@mui/material';
+import PageContext from "./PageContext";
 
 class User extends React.Component {
     constructor(props) {
@@ -15,6 +17,12 @@ class User extends React.Component {
         };
         this._isMounted = false;
     };
+
+    componentDidUpdate(prevProps) {
+        if(this.props.userID !== prevProps.userID) {
+            this.componentDidMount()
+        }
+    }
 
     async componentDidMount() {
         this._isMounted = true;
@@ -46,10 +54,16 @@ class User extends React.Component {
                 {isUser ? (
                     <React.Fragment>
                         <TableCell align="left">
-                            <Avatar alt={this.state.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${this.state.user.user_id}/${this.state.user.avatar}?size=480`} sx={{
-                                width: 30,
-                                height: 30,
-                            }} />
+                            <PageContext.Consumer>
+                            {({changeId})=> (
+                                <IconButton onClick={() => changeId(this.state.user.user_id)}>
+                                    <Avatar alt={this.state.user.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${this.state.user.user_id}/${this.state.user.avatar}?size=480`} sx={{
+                                        width: 30,
+                                        height: 30,
+                                    }} />
+                                </IconButton>
+                            )}
+                            </PageContext.Consumer>
                         </TableCell>
                         <TableCell align="left">{this.state.user.username}</TableCell>
                     </React.Fragment>

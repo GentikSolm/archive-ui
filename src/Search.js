@@ -4,6 +4,7 @@ import {
     Autocomplete
 } from '@mui/material/';
 import { getTopUsers } from './generalUtils';
+import PageContext from './PageContext';
 
 export default class Search extends React.Component {
     constructor(props){
@@ -36,16 +37,19 @@ export default class Search extends React.Component {
     render() {
         const users = (this.state.users === undefined ? [{username: "Select...", value: -1}]: this.state.users)
         return (
-            <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={users}
-            getOptionLabel={(option)=> option.username}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label={this.props.label} />}
-            onChange={()=>console.log("clicked")}
-            />
-
+            <PageContext.Consumer>
+                {({changeId})=> (
+                    <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={users}
+                    getOptionLabel={(option)=> option.username}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} label={this.props.label} />}
+                    onChange={(e,option)=>changeId(option.user_id)}
+                    />
+                )}
+            </PageContext.Consumer>
         )
     };
 }
