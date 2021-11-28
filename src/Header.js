@@ -11,6 +11,7 @@ import {
     Typography,
     Avatar,
 } from '@mui/material';
+import Search from "./Search"
 
 
 import { getMyInfo } from "./generalUtils";
@@ -60,15 +61,8 @@ export default class Header extends React.Component {
                       Reppo
                     </Button>
                     <ThemeProvider theme={searchTheme}>
-                        <TextField
-                            id="searchBar"
-                            label="Search For a User"
-                            variant="filled"
-                            color="secondary"
-                            sx={{
-                                width: '40%',
-                                float: 'center'
-                            }}/>
+                        <Search
+                            label="Search For a User"/>
                     </ThemeProvider>
                         <div style={{display: "flex", alignItems: "center"}}>
                         <FormControlLabel control={
