@@ -47,11 +47,10 @@ export default class UserTransactions extends React.Component {
     }
 
     render() {
-        const isUsers = !(this.state.transactions === undefined)
-        const useIndexLim = (isUsers && (this.state.transactions.length >= this.state.indexLimiter))
-        if(isUsers){
-            const indexLimiter = ((useIndexLim) ? this.state.indexLimiter : this.state.transactions.length)
-        }
+        const isUsers = !(this.state.transactions === undefined);
+        const useIndexLim = (isUsers && (this.state.transactions.length >= this.state.indexLimiter));
+        const indexLimiter = ((useIndexLim || !isUsers) ? this.state.indexLimiter : this.state.transactions.length);
+
         return (
             <Paper elevation={5}>
             {isUsers ? (
@@ -102,7 +101,7 @@ export default class UserTransactions extends React.Component {
                             </TableHead>
                             <TableBody>
                                 {
-                                this.state.transactions.sort((a, b) => b.time - a.time).slice(0, this.state.indexLimiter).map((transaction, index) => (
+                                this.state.transactions.sort((a, b) => b.time - a.time).slice(0, indexLimiter).map((transaction, index) => (
                                 <TableRow
                                     key={index}
                                     hover
