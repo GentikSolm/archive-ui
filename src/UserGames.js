@@ -47,11 +47,8 @@ class User extends React.Component {
                     <Box
                     sx={{
                         display: 'flex',
-                        justifyContent: 'center',
                         flexWrap: 'wrap',
                         listStyle: 'none',
-                        p: 0.5,
-                        m: 0,
                       }}>
                         {
                         this.state.games.sort((a, b) => b.game_name - a.game_name).map((game, index) => (
@@ -65,8 +62,6 @@ class User extends React.Component {
                         justifyContent: 'center',
                         flexWrap: 'wrap',
                         listStyle: 'none',
-                        p: 0.5,
-                        m: 0,
                       }}>
                         <Chip label={this.state.error} size="small" />
                     </Box>

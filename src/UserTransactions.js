@@ -18,11 +18,9 @@ export default class UserTransactions extends React.Component {
         super(props);
         this.state = {
             transactions: undefined,
-            limit: 10,
-            offset: 0,
             selectedID: "",
             error: "Loading...",
-            indexLimiter: 10,
+            indexLimiter: 5,
         };
         this._isMounted = false;
     }
@@ -124,14 +122,14 @@ export default class UserTransactions extends React.Component {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {this.state.indexLimiter > 10 ? (
+                    {this.state.indexLimiter > 5 ? (
                         <Button
                             variant="contained"
                             onClick={(event) => {this.setState({indexLimiter: this.state.indexLimiter - 5})}}
                             sx={{
                                 margin: 2
                             }}>
-                                view 5 less
+                                view less
                         </Button>
                     ): (<div></div>)}
                     <Button
@@ -141,7 +139,7 @@ export default class UserTransactions extends React.Component {
                         sx={{
                             margin: 2
                         }}>
-                            view 5 more
+                            view more
                     </Button>
                 </React.Fragment>
             ):(

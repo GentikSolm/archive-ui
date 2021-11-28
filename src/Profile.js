@@ -16,6 +16,7 @@ class Profile extends React.Component {
             isUser: false,
             user: undefined,
             error: "Loading...",
+            defaultBio: "We don't know much about this person, but they must be pretty cool!",
         };
         this._isMounted = false;
     };
@@ -48,30 +49,55 @@ class Profile extends React.Component {
         return (
             <Paper elevation={5} sx={{padding: 2}}>
                 {isUser ? (
-                <Grid container spacing={2} sx={{margin: 2}}>
-                    <Grid item xs={6}>
-                        <Avatar alt={this.state.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${this.state.user.user_id}/${this.state.user.avatar}?size=480`} sx={{
-                            width: 80,
-                            height: 80,
-                        }} />
-                        <Typography variant="h4" sx={{padding: 1}}>
-                        {this.state.user.username}
-                        </Typography>
-                        <Typography sx={{display: "flex", padding: 1, fontSize: "small"}}>
-                        {"Rep: " + this.state.user.rep}
-                        </Typography>
-                        <Typography sx={{display: "flex", paddingLeft: 2, fontSize: "small"}}>
-                        {"Transactions: " + this.state.user.total_trans}
-                        </Typography>
-                        <UserGames userID={this.state.user.user_id} />
-                    </Grid>
-                    <Grid tiem xs={6}>
-                    <Typography sx={{padding: 2}}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </Typography>
+                <React.Fragment>
+                    <Grid container spacing={2} sx={{margin: 2, padding: 2}}>
+                        <Grid item xs={5}>
+                            <Grid container spacing={1}>
+                                <Grid item xs={3}>
+                                    <Avatar alt={this.state.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${this.state.user.user_id}/${this.state.user.avatar}?size=480`} sx={{
+                                        width: 80,
+                                        height: 80,
+                                    }} />
+                                </Grid>
+                                <Grid item xs={9}>
+                                    <Grid container spacing={1} justifyContent="flex-start">
+                                        <Grid item xs={12}>
+                                            <Typography variant="h4">
+                                            {this.state.user.username}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={7} sx={{display: "flex", justifyContent: "space-between"}}>
+                                            <Typography sx={{display: "flex", fontSize: "small"}}>
+                                            {"Rep: " + this.state.user.rep}
+                                            </Typography>
+                                            <Typography sx={{display: "flex", fontSize: "small"}}>
+                                            {"Transactions: " + this.state.user.total_trans}
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item xs={8} sx={{display: "flex"}}>
+                                            <UserGames userID={this.state.user.user_id} />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={7}>
+                            <Typography variant="h4">
+                                Bio:
+                            </Typography>
+                            {this.state.user.bio != null ? (
+                                <Typography sx={{marginRight: 5}}>
+                                    {this.state.user.bio}
+                                </Typography>
+                            ) : (
+                                <Typography sx={{marginRight: 5}}>
+                                    {this.state.defaultBio}
+                                </Typography>
+                            )}
+                        </Grid>
                     </Grid>
                     <UserTransactions userID={this.state.user.user_id} />
-                </Grid>
+                </React.Fragment>
                 ) : (
                     <Typography variant="h3" sx={{display: 'flex', justifyContent: 'center', margin: 2, padding: 3}}>
                         {this.state.error}

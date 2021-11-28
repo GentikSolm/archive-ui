@@ -109,7 +109,7 @@ export default class Leaderboard extends React.Component {
                             sx={{
                                 margin: 2
                             }}>
-                                view 5 less
+                                view less
                         </Button>
                     ): (<div></div>)}
                     <Button
@@ -119,7 +119,7 @@ export default class Leaderboard extends React.Component {
                         sx={{
                             margin: 2
                         }}>
-                            view 5 more
+                            view more
                     </Button>
                 </React.Fragment>
             ):(
