@@ -80,7 +80,7 @@ export default class App extends React.Component {
                 checkBox={this.state.isDark}
                  />
                 <Box sx={{
-                    marginTop: 10,
+                    marginTop: 7,
                     paddingLeft: 15,
                     paddingRight: 15,
                     paddingBottom: 2,
