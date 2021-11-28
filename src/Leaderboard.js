@@ -12,6 +12,7 @@ import {
     Avatar,
 } from '@mui/material';
 import {getTopUsers} from './generalUtils.js'
+import PageContext from './PageContext';
 
 export default class Leaderboard extends React.Component {
     constructor(props) {
@@ -51,9 +52,13 @@ export default class Leaderboard extends React.Component {
         return (
             <React.Fragment>
                 <div style={{display: 'flex', justifyContent: "center"}}>
-                    <Typography variant="h1" sx={{color: this.props.isDark ? "white" : 'black'}}>
-                        Leaderboard
+                <PageContext.Consumer>
+                {({isDark}) => (
+                    <Typography variant="h1" sx={{color: isDark ? "white" : 'black'}}>
+                    Leaderboard
                     </Typography>
+                )}
+                </PageContext.Consumer>
                 </div>
                 <Paper elevation={5}>
                 {isUsers ? (
