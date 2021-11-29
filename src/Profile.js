@@ -23,8 +23,6 @@ class Profile extends React.Component {
             isUser: false,
             user: undefined,
             error: "Loading...",
-            defaultBio: "We don't know much about this person, but they must be pretty cool!",
-            bio: undefined,
             alert: "",
             alertText: ""
         };
@@ -199,15 +197,9 @@ class Profile extends React.Component {
                                                 <Typography variant="h4">
                                                     Bio:
                                                 </Typography>
-                                                {this.state.user.bio != null ? (
-                                                    <Typography sx={{marginRight: 5}}>
-                                                        {this.state.user.bio}
-                                                    </Typography>
-                                                ) : (
-                                                    <Typography sx={{marginRight: 5}}>
-                                                        {this.state.defaultBio}
-                                                    </Typography>
-                                                )}
+                                                <Typography sx={{marginRight: 5}}>
+                                                    {this.state.user.bio != null ? this.state.user.bio : "We don't know much about this person, but they must be pretty cool!"}
+                                                </Typography>
                                             </Grid>
                                         </Grid>
                                     <UserTransactions userID={this.state.user.user_id} />

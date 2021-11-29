@@ -42,7 +42,6 @@ class User extends React.Component {
                 error: "Error loading games!"
             })
         }
-        console.log(this.state.games)
     }
 
     componentWillUnmount(){
@@ -66,7 +65,6 @@ class User extends React.Component {
     }
 
     handleGameEdit(e, index) {
-        console.log(e.target.value)
         var objIndex = this.state.games.findIndex((game => game.index === index));
         var games = this.state.games;
         games[objIndex].game_name = e.target.value;
