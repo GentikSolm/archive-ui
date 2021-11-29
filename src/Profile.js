@@ -8,11 +8,15 @@ import {
     FormControl,
     InputLabel,
     OutlinedInput,
-    Button,
+    Box,
     Alert,
-    AlertTitle
+    AlertTitle,
+    IconButton,
 } from '@mui/material';
 import UserTransactions from './UserTransactions';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
 import UserGames from './UserGames';
 import PageContext from "./PageContext";
 import "./loader.css"
@@ -25,7 +29,8 @@ class Profile extends React.Component {
             user: undefined,
             error: "",
             alert: "",
-            alertText: ""
+            alertText: "",
+            isEdit: false,
         };
         this._isMounted = false;
     };
@@ -65,10 +70,10 @@ class Profile extends React.Component {
             if(result.errors){
                 throw new Error("500")
             }
-            this.sendAlert(1, "Successfully updated Bio");
+            this.sendAlert(1, "Successfully updated Profile");
         }
         catch(e){
-            this.sendAlert(3, "Failed to update Bio");
+            this.sendAlert(3, "Failed to update Profile");
         }
     }
 
@@ -139,24 +144,53 @@ class Profile extends React.Component {
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={5}>
-                                                <Typography variant="h4">
-                                                    Bio:
-                                                </Typography>
-                                                <FormControl sx={{ m: 1, width: "80%", height: "100%" }}>
-                                                    <InputLabel htmlFor="filled-adornment-amount">Edit</InputLabel>
-                                                    <OutlinedInput
-                                                        defaultValue={this.state.user.bio}
-                                                        multiline
-                                                        rows={3}
-                                                        onChange={(event) => {this.handleBioChange(event)}}
-                                                        label="Bio"
-                                                    />
-                                                </FormControl>
-                                            </Grid>
-                                            <Grid item xs={1}>
-                                                <Button variant="contained" onClick={() => {this.changeBio(loginId, this.state.user.bio, token)}}>
-                                                    Send Changes
-                                                </Button>
+                                                <Grid item xs={12} sx={{display: "inline-flex"}}>
+                                                    <Typography variant="h4">
+                                                        Bio:
+                                                    </Typography>
+                                                    {!this.state.isEdit ? (
+                                                        <IconButton onClick={()=>{this.setState({isEdit:true})}}>
+                                                            <EditIcon fontsize="small" />
+                                                        </IconButton>
+                                                    ) : (
+                                                        <Box>
+                                                            <IconButton onClick={
+                                                                ()=>{
+                                                                    this.setState({isEdit:false});
+                                                                    this.changeBio(loginId, this.state.user.bio, token)
+                                                                }
+                                                            }>
+                                                                <SaveIcon fontsize="small" />
+                                                            </IconButton>
+                                                            <IconButton onClick={
+                                                                ()=>{
+                                                                    this.setState({isEdit:false})
+                                                                    this.componentDidMount()
+                                                                }
+                                                            }>
+                                                                <CancelIcon fontsize="small" />
+                                                            </IconButton>
+                                                        </Box>
+                                                    )}
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    {this.state.isEdit ? (
+                                                        <FormControl sx={{ m: 1, width: "80%", height: "100%" }}>
+                                                            <InputLabel htmlFor="filled-adornment-amount">Edit</InputLabel>
+                                                            <OutlinedInput
+                                                                defaultValue={this.state.user.bio}
+                                                                multiline
+                                                                rows={3}
+                                                                onChange={(event) => {this.handleBioChange(event)}}
+                                                                label="Bio"
+                                                            />
+                                                        </FormControl>
+                                                    ) : (
+                                                        <Typography>
+                                                            {this.state.user.bio}
+                                                        </Typography>
+                                                    )}
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                     <UserTransactions userID={this.state.user.user_id} />
