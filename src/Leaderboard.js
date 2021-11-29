@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import {getTopUsers} from './generalUtils.js'
 import PageContext from './PageContext';
+import "./loader.css"
 
 export default class Leaderboard extends React.Component {
     constructor(props) {
@@ -20,7 +21,7 @@ export default class Leaderboard extends React.Component {
         this.state = {
             users: undefined,
             selectedID: "",
-            error: "Loading...",
+            error: "",
             indexLimiter: 5,
         };
         this._isMounted = false;
@@ -141,10 +142,24 @@ export default class Leaderboard extends React.Component {
                     </Button>
                 </React.Fragment>
             ):(
-                <Typography variant="h2" sx={{display: 'flex', justifyContent: 'center', margin: 2, padding: 3}}>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                {this.state.error === "" ? (
+                    <PageContext.Consumer>
+                    {({isDark})=>(
+                        <div className="lds-ellipsis">
+                        <div style={{background: (isDark ? "white" : "#2c2f33")}}></div>
+                        <div style={{background: (isDark ? "white" : "#2c2f33")}}></div>
+                        <div style={{background: (isDark ? "white" : "#2c2f33")}}></div>
+                        <div style={{background: (isDark ? "white" : "#2c2f33")}}></div>
+                        </div>
+                    )}
+                    </PageContext.Consumer>
+                ):(
+                    <Typography>
                     {this.state.error}
-                </Typography>
-
+                    </Typography>
+                )}
+                </div>
                 )}
                 </Paper>
             </React.Fragment>

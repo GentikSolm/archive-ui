@@ -15,6 +15,7 @@ import {
 import UserTransactions from './UserTransactions';
 import UserGames from './UserGames';
 import PageContext from "./PageContext";
+import "./loader.css"
 
 class Profile extends React.Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class Profile extends React.Component {
         this.state = {
             isUser: false,
             user: undefined,
-            error: "Loading...",
+            error: "",
             alert: "",
             alertText: ""
         };
@@ -86,7 +87,7 @@ class Profile extends React.Component {
             alert: level,
             alertText: details
         });
-        setTimeout(()=> {this.setState({alert: "", alertText: ""})}, 3000);
+        setTimeout(async ()=> {await this.setState({alert: "", alertText: ""})}, 3000);
     }
 
     handleBioChange = (e) => {
@@ -210,9 +211,23 @@ class Profile extends React.Component {
                     </PageContext.Consumer>
                 </React.Fragment>
                 ) : (
-                    <Typography variant="h3" sx={{display: 'flex', justifyContent: 'center', margin: 2, padding: 3}}>
+                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                    {this.state.error === "" ? (
+                        <PageContext.Consumer>
+                        {({isDark})=>(
+                            <div className="lds-ellipsis">
+                            <div style={{background: (isDark ? "white" : "#2c2f33")}}></div>
+                            <div style={{background: (isDark ? "white" : "#2c2f33")}}></div>
+                            <div style={{background: (isDark ? "white" : "#2c2f33")}}></div>
+                            <div style={{background: (isDark ? "white" : "#2c2f33")}}></div>
+                            </div>
+                        )}
+                        </PageContext.Consumer>                    ):(
+                        <Typography>
                         {this.state.error}
-                    </Typography>
+                        </Typography>
+                    )}
+                    </div>
                 )}
                 {this.state.alert !== "" ? (
 
