@@ -180,7 +180,6 @@ export async function login(userId){
 }
 
 export async function changeBio(userId, bio, token){
-    console.log(bio)
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", `Bearer ${token}`);

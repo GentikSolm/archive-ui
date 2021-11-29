@@ -30,22 +30,26 @@ export default class Header extends React.Component {
     }
     async componentDidMount(){
         this._isMounted = true;
-        const fragment = new URLSearchParams(window.location.hash.slice(1));
-        const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
+        try{
+            const fragment = new URLSearchParams(window.location.hash.slice(1));
+            const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
 
-        if (!accessToken) {
-            this.setState({loggedIn: false})
-            return
+            if (!accessToken) {
+                this.setState({loggedIn: false})
+                return
+            }
+
+            var res = await getMyInfo(tokenType, accessToken);
+            const {username, avatar, id} = res;
+            res = await login(id);
+            const {user_id, token, expiration} = res.data.login;
+            //TODO: change expiration to timestamp
+            this.setState({username: username, loggedIn: true, userAvatar: avatar, userId: user_id, token: token, expiration: expiration});
+            this.props.updateInfo(expiration, token, user_id);
         }
-
-        var res = await getMyInfo(tokenType, accessToken);
-        const {username, avatar, id} = res;
-
-        res = await login(id);
-        const {user_id, token, expiration} = res.data.login;
-        //TODO: change expiration to timestamp
-        this.setState({username: username, loggedIn: true, userAvatar: avatar, userId: user_id, token: token, expiration: expiration}); 
-        this.props.updateInfo(expiration, token, user_id);
+        catch(e){
+            this.setState({loggedIn: false})
+        }
     }
     componentWillUnmount(){
         this._isMounted = false;

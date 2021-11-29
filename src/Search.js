@@ -21,7 +21,7 @@ export default class Search extends React.Component {
         var result = await getTopUsers()
         if(result){
             this._isMounted && this.setState({
-                users: result.data.users
+                users: (result.data.users === null ? undefined : result.data.users)
             });
         }
         else{
@@ -35,7 +35,8 @@ export default class Search extends React.Component {
     }
 
     render() {
-        const users = (this.state.users === undefined ? [{username: "Select...", value: -1}]: this.state.users)
+
+        const users = (this.state.users === undefined ? [{username: "Select...", user_id: -1}]: this.state.users)
         return (
             <PageContext.Consumer>
                 {({changeId})=> (
@@ -46,7 +47,7 @@ export default class Search extends React.Component {
                     getOptionLabel={(option)=> option.username}
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField color="secondary" {...params} label={this.props.label} />}
-                    onChange={(e,option)=>changeId(option.user_id)}
+                    onChange={(e,option)=>changeId(option === null ? -1 : option.user_id)}
                     />
                 )}
             </PageContext.Consumer>

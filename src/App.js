@@ -16,6 +16,9 @@ export default class App extends React.Component {
             this.setState({isDark: !this.state.isDark})
         }
         this.changeId = (id) => {
+            if(id === -1){
+                return
+            }
             this.setState({selectedID: id})
         }
         this.setLoginInfo = (expiration, token, id) => {

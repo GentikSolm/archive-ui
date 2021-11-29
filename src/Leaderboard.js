@@ -32,7 +32,7 @@ export default class Leaderboard extends React.Component {
         var result = await getTopUsers()
         if(result){
             this._isMounted && this.setState({
-                users: result.data.users
+                users: (result.data.users === null ? undefined : result.data.users)
             });
         }
         else{
@@ -46,7 +46,7 @@ export default class Leaderboard extends React.Component {
     }
 
     render() {
-        const isUsers = !(this.state.users === undefined);
+        const isUsers = !(this.state.users === undefined || this.state.users === null);
         const useIndexLim = (isUsers && (this.state.users.length >= this.state.indexLimiter));
         const indexLimiter = ((useIndexLim || !isUsers) ? this.state.indexLimiter : this.state.users.length);
         return (
