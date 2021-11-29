@@ -7,7 +7,7 @@ export async function getTopUsers(){
             method: 'POST',
             headers: myHeaders,
             body: JSON.stringify({
-                query: `query ExampleQuery {
+                query: `query {
                     users {
                         user_id,
                         rep,
@@ -39,7 +39,7 @@ export async function getUserInfo(userId){
             method: 'POST',
             headers: myHeaders,
             body: JSON.stringify({
-                query: `query ExampleQuery($userId: ID!) {
+                query: `query($userId: ID!) {
                             user(user_id: $userId) {
                             user_id,
                             rep,
@@ -73,7 +73,7 @@ export async function getUserTrans(userId){
             method: 'POST',
             headers: myHeaders,
             body: JSON.stringify({
-                query: `query ExampleQuery($userId: ID!) {
+                query: `query($userId: ID!) {
                             usertransactions(user_id: $userId) {
                             transaction_id,
                             sender,
@@ -106,7 +106,7 @@ export async function getGames(userId){
             method: 'POST',
             headers: myHeaders,
             body: JSON.stringify({
-                query: `query ExampleQuery($userId: ID!) {
+                query: `query($userId: ID!) {
                             games(user_id: $userId) {
                             user_id,
                             game_name
@@ -157,7 +157,7 @@ export async function login(userId){
             method: 'POST',
             headers: myHeaders,
             body: JSON.stringify({
-                query: `query ExampleQuery($userId: ID!) {
+                query: `query($userId: ID!) {
                             login(user_id: $userId) {
                             user_id,
                             token,
@@ -172,6 +172,37 @@ export async function login(userId){
             throw new Error("Request Failed!")
         }
         res = await res.json()
+        return res;
+    }
+    catch (e){
+        return undefined;
+    }
+}
+
+export async function changeBio(userId, bio, token){
+    console.log(bio)
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    try{
+        var res = await fetch("http://localhost:3301/graphql", {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({
+                query: `mutation($userId: ID!, $bio: String!) {
+                            editBio(user_id: $userId, bio: $bio) {
+                                bio
+                            }
+                        }`,
+                variables: {"userId":userId, "bio":bio}
+            }),
+            redirect: 'follow'
+        })
+        if(res.status !== 200){
+            throw new Error("Request Failed!")
+        }
+        res = await res.json()
+        console.log(res)
         return res;
     }
     catch (e){

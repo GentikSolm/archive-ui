@@ -45,7 +45,7 @@ export default class Search extends React.Component {
                     options={users}
                     getOptionLabel={(option)=> option.username}
                     sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label={this.props.label} />}
+                    renderInput={(params) => <TextField color="secondary" {...params} label={this.props.label} />}
                     onChange={(e,option)=>changeId(option.user_id)}
                     />
                 )}
