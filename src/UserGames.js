@@ -29,6 +29,7 @@ class User extends React.Component {
 
         var result = await getGames(this.props.userID)
         if(result){
+            result.data.games = result.data.games.map((element, index) => {return {...element, index: index}});
             this._isMounted && this.setState({
                 hasGames: true,
                 games: result.data.games
@@ -41,16 +42,17 @@ class User extends React.Component {
                 error: "Error loading games!"
             })
         }
+        console.log(this.state.games)
     }
 
     componentWillUnmount(){
         this._isMounted = false;
     }
 
-    handleGameDelete(selectedGame) {
+    handleGameDelete(index) {
         this._isMounted && this.setState({
             games: this.state.games.filter(function(game) {
-                return game.game_name !== selectedGame
+                return game.index !== index
             })
         })
         // this.props.setGames(this.state.games)
@@ -58,16 +60,20 @@ class User extends React.Component {
 
     handleGameAdd() {
         this._isMounted && this.setState({
-            games: [...this.state.games, [this.props.userID, ""]]
+            games: [...this.state.games, {user_id: this.props.userID, game_name: "", index: this.state.games.length+1}]
         })
         // this.props.setGames(this.state.games)
     }
-    
-    // handleGameEdit(selectedGameIndex) {
-    //     this._isMounted && this.setState({
-    //         games: this.state.games.
-    //     })
-    // }
+
+    handleGameEdit(e, index) {
+        console.log(e.target.value)
+        var objIndex = this.state.games.findIndex((game => game.index === index));
+        var games = this.state.games;
+        games[objIndex].game_name = e.target.value;
+        this._isMounted && this.setState({
+            games: games
+        })
+    }
 
     render() {
         const hasGames = !(this.state.games === undefined)
@@ -84,14 +90,14 @@ class User extends React.Component {
                             }}>
                                 {
                                 this.state.games.sort((a, b) => b.game_name - a.game_name).map((game) => (
-                                    <Chip 
-                                        key={game.game_name}
-                                        onDelete={() => this.handleGameDelete(game.game_name)}
+                                    <Chip
+                                        key={game.index}
+                                        onDelete={() => this.handleGameDelete(game.index)}
                                         label={
                                             <Input
                                                 defaultValue={game.game_name}
                                                 disableUnderline={true}
-                                                // onChange={()=> {handleGameEdit(game.game_name)}}
+                                                onChange={(e)=> {this.handleGameEdit(e, game.index)}}
                                                 size="small"
                                                 sx={{ padding: 0}}
                                                 />
@@ -109,28 +115,22 @@ class User extends React.Component {
                                     sx={{margin: "2px"}}
                                 />
                             </Box>
-                        ) : 
+                        ) :
                         hasGames && !(this.props.userID === loginId) ? (
-                            <Box
-                            sx={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                listStyle: 'none',
-                            }}>
-                                {
-                                this.state.games.sort((a, b) => b.game_name - a.game_name).map((game, index) => (
-                                    <Chip key={index} label={game.game_name} size="small" sx={{margin: "2px"}} />
-                                ))}
+                            <Box sx={{
+                                    display: 'flex',
+                                    flexWrap: 'wrap',
+                                    listStyle: 'none',}}>
+                            {this.state.games.sort((a, b) => b.game_name - a.game_name).map((game, index) => (
+                                <Chip key={index} label={game.game_name} size="small" sx={{margin: "2px"}} />))}
                             </Box>
                         ) : (
-                            <Box
-                            sx={{
+                            <Box sx={{
                                 display: 'flex',
                                 justifyContent: 'center',
                                 flexWrap: 'wrap',
-                                listStyle: 'none',
-                            }}>
-                                <Chip label={this.state.error} size="small" />
+                                listStyle: 'none',}}>
+                            <Chip label={this.state.error} size="small" />
                             </Box>
                         )}
                     </React.Fragment>

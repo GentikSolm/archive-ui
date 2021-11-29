@@ -9,6 +9,8 @@ import {
     InputLabel,
     OutlinedInput,
     Button,
+    Alert,
+    AlertTitle
 } from '@mui/material';
 import UserTransactions from './UserTransactions';
 import UserGames from './UserGames';
@@ -23,6 +25,8 @@ class Profile extends React.Component {
             error: "Loading...",
             defaultBio: "We don't know much about this person, but they must be pretty cool!",
             bio: undefined,
+            alert: "",
+            alertText: ""
         };
         this._isMounted = false;
     };
@@ -56,9 +60,40 @@ class Profile extends React.Component {
         this._isMounted = false;
     }
 
+    changeBio = async (loginId, bio, token) => {
+        try{
+            var result = await changeBio(loginId, bio, token)
+            if(result.errors){
+                throw new Error("500")
+            }
+            this.sendAlert(1, "Successfully updated Bio");
+        }
+        catch(e){
+            this.sendAlert(3, "Failed to update Bio");
+        }
+    }
+
+    sendAlert = (levelId, details) =>{
+        var level = "";
+        if(levelId === 1){
+            level = "success";
+        }
+        else if(levelId === 2){
+            level = "warning";
+        }
+        else{
+            level = "error";
+        }
+        this.setState({
+            alert: level,
+            alertText: details
+        });
+        setTimeout(()=> {this.setState({alert: "", alertText: ""})}, 3000);
+    }
+
     handleBioChange = (e) => {
         this._isMounted && this.setState({
-            bio: e.target.value,
+            user: {...this.state.user, bio:e.target.value}
         })
     }
 
@@ -120,7 +155,7 @@ class Profile extends React.Component {
                                                 </FormControl>
                                             </Grid>
                                             <Grid item xs={1}>
-                                                <Button variant="contained" onClick={() => {changeBio(loginId, this.state.bio, token)}}>
+                                                <Button variant="contained" onClick={() => {this.changeBio(loginId, this.state.user.bio, token)}}>
                                                     Send Changes
                                                 </Button>
                                             </Grid>
@@ -186,6 +221,15 @@ class Profile extends React.Component {
                     <Typography variant="h3" sx={{display: 'flex', justifyContent: 'center', margin: 2, padding: 3}}>
                         {this.state.error}
                     </Typography>
+                )}
+                {this.state.alert !== "" ? (
+
+                    <Alert severity={this.state.alert} sx={{position: 'fixed', bottom: 0, right: 0}}>
+                      <AlertTitle>{this.state.alert.charAt(0).toUpperCase() + this.state.alert.slice(1)}</AlertTitle>
+                      {this.state.alertText}
+                    </Alert>
+                ):(
+                    ""
                 )}
             </Paper>
         );
