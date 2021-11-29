@@ -69,7 +69,7 @@ class Profile extends React.Component {
                 {isUser ? (
                 <React.Fragment>
                     <PageContext.Consumer>
-                        {({loginId, expiration, token})=> (
+                        {({loginId, token, setGames})=> (
                             <React.Fragment>
                                 {this.state.user.user_id === loginId ? (
                                     <React.Fragment>
@@ -98,7 +98,7 @@ class Profile extends React.Component {
                                                                 </Typography>
                                                             </Grid>
                                                             <Grid item xs={8} sx={{display: "flex"}}>
-                                                                <UserGames userID={this.state.user.user_id} />
+                                                                <UserGames setGames={setGames} userID={this.state.user.user_id} />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -120,10 +120,7 @@ class Profile extends React.Component {
                                                 </FormControl>
                                             </Grid>
                                             <Grid item xs={1}>
-                                                <Button 
-                                                    variant="contained"
-                                                    onClick={() => {changeBio(loginId, this.state.bio, token)}}
-                                                >
+                                                <Button variant="contained" onClick={() => {changeBio(loginId, this.state.bio, token)}}>
                                                     Send Changes
                                                 </Button>
                                             </Grid>

@@ -9,6 +9,9 @@ import PageContext from './PageContext';
 export default class App extends React.Component {
     constructor(props){
         super(props)
+        this.setGames = (games) => {
+            this.setState({games: games})
+        }
         this.toggleTheme = () => {
             this.setState({isDark: !this.state.isDark})
         }
