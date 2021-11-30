@@ -112,6 +112,7 @@ class User extends React.Component {
         }
         catch(e){
             this.sendAlert(3, "Failed to update Games");
+            this.componentDidMount();
         }
     }
 

@@ -74,6 +74,7 @@ class Profile extends React.Component {
         }
         catch(e){
             this.sendAlert(3, "Failed to update Bio");
+            this.componentDidMount();
         }
     }
 
