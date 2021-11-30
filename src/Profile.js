@@ -12,6 +12,7 @@ import {
     Alert,
     AlertTitle,
     IconButton,
+    Chip
 } from '@mui/material';
 import UserTransactions from './UserTransactions';
 import EditIcon from '@mui/icons-material/Edit';
@@ -113,10 +114,10 @@ class Profile extends React.Component {
                             <React.Fragment>
                                 {this.state.user.user_id === loginId ? (
                                     <React.Fragment>
-                                        <Grid container spacing={2} sx={{margin: 2, padding: 2}}>
-                                            <Grid item xs={5}>
-                                                <Grid container spacing={1}>
-                                                    <Grid item xs={3}>
+                                    <Grid container spacing={2} sx={{marginTop: 2,marginLeft: 1, padding: 2}}>
+                                        <Grid item xs={4}>
+                                            <Grid container spacing={2}>
+                                                <Grid item xs={2} sx={{marginRight: 3}}>
                                                         <Avatar alt={this.state.user.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${this.state.user.user_id}/${this.state.user.avatar}?size=480`} sx={{
                                                             width: 80,
                                                             height: 80,
@@ -129,13 +130,9 @@ class Profile extends React.Component {
                                                                 {this.state.user.username}
                                                                 </Typography>
                                                             </Grid>
-                                                            <Grid item xs={7} sx={{display: "flex", justifyContent: "space-between"}}>
-                                                                <Typography sx={{display: "flex", fontSize: "small"}}>
-                                                                {"Rep: " + this.state.user.rep}
-                                                                </Typography>
-                                                                <Typography sx={{display: "flex", fontSize: "small"}}>
-                                                                {"Transactions: " + this.state.user.total_trans}
-                                                                </Typography>
+                                                            <Grid item xs={7}>
+                                                                <Chip sx={{fontWeight: 'bold', marginRight: 2}} color={"primary"} label={"Rep: " + this.state.user.rep} size="large" />
+                                                                <Chip sx={{fontWeight: 'bold'}} color={"primary"} label={"Transactions: " + this.state.user.total_trans} size="large" />
                                                             </Grid>
                                                             <Grid item xs={8} sx={{display: "flex"}}>
                                                                 <UserGames setGames={setGames} userID={this.state.user.user_id} />
@@ -144,7 +141,7 @@ class Profile extends React.Component {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                            <Grid item xs={5}>
+                                            <Grid item xs={7}>
                                                 <Grid item xs={12} sx={{display: "inline-flex"}}>
                                                     <Typography variant="h4">
                                                         Bio:
@@ -198,13 +195,13 @@ class Profile extends React.Component {
                                 </React.Fragment>
                             ) : (
                                 <React.Fragment>
-                                        <Grid container spacing={2} sx={{margin: 2, padding: 2}}>
-                                            <Grid item xs={5}>
-                                                <Grid container spacing={1}>
-                                                    <Grid item xs={3}>
+                                        <Grid container spacing={2} sx={{marginTop: 2,marginLeft: 1, padding: 2}}>
+                                            <Grid item xs={4}>
+                                                <Grid container spacing={2}>
+                                                    <Grid item xs={2} sx={{marginRight: 3}}>
                                                         <Avatar alt={this.state.user.username} color='secondary' src={`https://cdn.discordapp.com/avatars/${this.state.user.user_id}/${this.state.user.avatar}?size=480`} sx={{
                                                             width: 80,
-                                                            height: 80,
+                                                            height: 80
                                                         }} />
                                                     </Grid>
                                                     <Grid item xs={9}>
@@ -214,16 +211,12 @@ class Profile extends React.Component {
                                                                 {this.state.user.username}
                                                                 </Typography>
                                                             </Grid>
-                                                            <Grid item xs={7} sx={{display: "flex", justifyContent: "space-between"}}>
-                                                                <Typography sx={{display: "flex", fontSize: "small"}}>
-                                                                {"Rep: " + this.state.user.rep}
-                                                                </Typography>
-                                                                <Typography sx={{display: "flex", fontSize: "small"}}>
-                                                                {"Transactions: " + this.state.user.total_trans}
-                                                                </Typography>
+                                                            <Grid item xs={12}>
+                                                            <Chip sx={{fontWeight: 'bold', marginRight: 2}} color={"primary"} label={"Rep: " + this.state.user.rep} size="large" />
+                                                            <Chip sx={{fontWeight: 'bold'}} color={"primary"} label={"Transactions: " + this.state.user.total_trans} size="large" />
                                                             </Grid>
-                                                            <Grid item xs={8} sx={{display: "flex"}}>
-                                                                <UserGames userID={this.state.user.user_id} />
+                                                            <Grid item xs={10} sx={{display: "flex"}}>
+                                                                <UserGames setGames={setGames} userID={this.state.user.user_id} />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>

@@ -7,6 +7,8 @@ import {
     IconButton,
     Alert,
     AlertTitle,
+    Typography,
+    Grid
 } from '@mui/material';
 import PageContext from "./PageContext";
 import EditIcon from '@mui/icons-material/Edit';
@@ -122,6 +124,13 @@ class User extends React.Component {
             <PageContext.Consumer>
                 {({loginId, token})=> (
                     <React.Fragment>
+                        <Grid container>
+                            <Grid item xs={12}>
+                                <Typography sx={{fonstSize: 12}}>
+                                    {hasGames && !(this.state.games.length === 0) ? 'Games:': "This user hasn't added any games!"}
+                                </Typography>
+                            </Grid>
+                            <Grid item>
                         {hasGames && this.props.userID === loginId ? (
                             <React.Fragment>
                                 {this.state.isEdit ? (
@@ -219,10 +228,9 @@ class User extends React.Component {
                         ):(
                         ""
                         )}
+                            </Grid>
+                        </Grid>
                     </React.Fragment>
-                
-                
-                    
                 )}
             </PageContext.Consumer>
         );
