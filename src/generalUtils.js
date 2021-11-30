@@ -246,8 +246,9 @@ export async function curse(senderId, receiverId, token){
             method: 'POST',
             headers: myHeaders,
             body: JSON.stringify({
-                query: `mutation($sender: ID!, $receiver: ID!) {
+                query: `mutation($senderId: ID!, $receiverId: ID!) {
                             curse(sender: $senderId, receiver: $receiverId) {
+                                rep
                             }
                         }`,
                 variables: {"senderId":senderId, "receiverId":receiverId}
@@ -274,8 +275,9 @@ export async function thank(senderId, receiverId, token){
             method: 'POST',
             headers: myHeaders,
             body: JSON.stringify({
-                query: `mutation($sender: ID!, $receiver: ID!) {
+                query: `mutation($senderId: ID!, $receiverId: ID!) {
                             thank(sender: $senderId, receiver: $receiverId) {
+                                rep
                             }
                         }`,
                 variables: {"senderId":senderId, "receiverId":receiverId}

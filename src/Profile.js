@@ -33,6 +33,7 @@ class Profile extends React.Component {
             alert: "",
             alertText: "",
             isEdit: false,
+            lastUpdated: new Date(Date.now())
         };
         this._isMounted = false;
     };
@@ -50,7 +51,8 @@ class Profile extends React.Component {
         if(result){
             this._isMounted && this.setState({
                 isUser: true,
-                user: result.data.user
+                user: result.data.user,
+                lastUpdated: new Date(Date.now())
             });
         }
         else{
@@ -66,30 +68,37 @@ class Profile extends React.Component {
         this._isMounted = false;
     }
 
-    thank = async (senderId, receiverId, token) => {
+    sendThank = async (senderId, receiverId, token) => {
         try{
             var result = await thank(senderId, receiverId, token)
             if(result.errors){
-                throw new Error("500")
+                throw result.errors
             }
             this.sendAlert(1, "Successfully sent thank");
         }
         catch(e){
-            this.sendAlert(3, result.errors.message)
+            e.forEach(element => {
+                this.sendAlert(3, element.message) 
+            });
         }
+        this.componentDidMount()
+        this.render()
     }
 
-    curse = async (senderId, receiverId, token) => {
+    sendCurse = async (senderId, receiverId, token) => {
         try{
             var result = await curse(senderId, receiverId, token)
             if(result.errors){
-                throw new Error("500")
+                throw result.errors
             }
             this.sendAlert(1, "Successfully sent curse");
         }
-        catch(e){
-            this.sendAlert(3, result.errors.message)
+        catch(e) {
+            e.forEach(element => {
+                this.sendAlert(3, element.message) 
+            });
         }
+        this.componentDidMount()
     }
 
     changeBio = async (loginId, bio, token) => {
@@ -264,14 +273,14 @@ class Profile extends React.Component {
                                             </Grid>
                                         </Grid>
                                         <div style={{width: '30%', display: 'flex', justifyContent: 'center', marginBottom: 10}}>
-                                        <Button disabled={loginId === undefined} variant="contained" color="success" sx={{marginRight: 4, width: '25%'}} onClick={()=>{thank(loginId, this.state.user.user_id, token)}}>
+                                        <Button disabled={loginId === undefined} variant="contained" color="success" sx={{marginRight: 4, width: '25%'}} onClick={()=>{this.sendThank(loginId, this.state.user.user_id, token)}}>
                                         Thank
                                         </Button>
-                                        <Button disabled={loginId === undefined} variant="contained" color="error" sx={{width: '25%'}} onClick={()=>{curse(loginId, this.state.user.user_id, token)}}>
+                                        <Button disabled={loginId === undefined} variant="contained" color="error" sx={{width: '25%'}} onClick={()=>{this.sendCurse(loginId, this.state.user.user_id, token)}}>
                                         Curse
                                         </Button>
                                         </div>
-                                    <UserTransactions userID={this.state.user.user_id} />
+                                    <UserTransactions key={this.state.lastUpdated} userID={this.state.user.user_id} lastUpdated={this.state.lastUpdated}/>
                                 </React.Fragment>
                             )}
                         </React.Fragment>

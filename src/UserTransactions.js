@@ -29,6 +29,9 @@ export default class UserTransactions extends React.Component {
         if(this.props.userID !== prevProps.userID) {
             this.componentDidMount()
         }
+        if(this.props.lastUpdated !== prevProps.lastUpdated){
+            this.componentDidMount()
+        }
     }
 
     async componentDidMount() {
