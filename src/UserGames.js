@@ -1,11 +1,18 @@
 import * as React from "react";
-import { getGames } from "./generalUtils";
+import { getGames, changeGames } from "./generalUtils";
 import {
     Chip,
     Box,
     Input,
+    IconButton,
+    Alert,
+    AlertTitle,
 } from '@mui/material';
 import PageContext from "./PageContext";
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
+import AddIcon from '@mui/icons-material/Add';
 
 class User extends React.Component {
     constructor(props) {
@@ -14,6 +21,9 @@ class User extends React.Component {
             hasGames: false,
             games: undefined,
             error: "Loading...",
+            alert: "",
+            alertText: "",
+            isEdit: false,
         };
         this._isMounted = false;
     };
@@ -54,14 +64,12 @@ class User extends React.Component {
                 return game.index !== index
             })
         })
-        // this.props.setGames(this.state.games)
     }
 
     handleGameAdd() {
         this._isMounted && this.setState({
             games: [...this.state.games, {user_id: this.props.userID, game_name: "", index: this.state.games.length+1}]
         })
-        // this.props.setGames(this.state.games)
     }
 
     handleGameEdit(e, index) {
@@ -73,46 +81,116 @@ class User extends React.Component {
         })
     }
 
+    sendAlert = (levelId, details) =>{
+        var level = "";
+        if(levelId === 1){
+            level = "success";
+        }
+        else if(levelId === 2){
+            level = "warning";
+        }
+        else{
+            level = "error";
+        }
+        this.setState({
+            alert: level,
+            alertText: details
+        });
+        setTimeout(async ()=> {await this.setState({alert: "", alertText: ""})}, 3000);
+    }
+
+    changeGames = async (loginId, games, token) =>{
+        const gameNames = games.map((game)=>{
+            return game.game_name;
+        });
+        try{
+            var result = await changeGames(loginId, gameNames, token)
+            if(result.errors){
+                throw new Error("500")
+            }
+            this.sendAlert(1, "Successfully updated Games");
+        }
+        catch(e){
+            this.sendAlert(3, "Failed to update Games");
+        }
+    }
+
     render() {
         const hasGames = !(this.state.games === undefined)
         return (
             <PageContext.Consumer>
-                {({loginId})=> (
+                {({loginId, token})=> (
                     <React.Fragment>
                         {hasGames && this.props.userID === loginId ? (
-                            <Box
-                            sx={{
-                                display: 'flex',
-                                flexWrap: 'wrap',
-                                listStyle: 'none',
-                            }}>
-                                {
-                                this.state.games.sort((a, b) => b.game_name - a.game_name).map((game) => (
-                                    <Chip
-                                        key={game.index}
-                                        onDelete={() => this.handleGameDelete(game.index)}
-                                        label={
-                                            <Input
-                                                defaultValue={game.game_name}
-                                                disableUnderline={true}
-                                                onChange={(e)=> {this.handleGameEdit(e, game.index)}}
+                            <React.Fragment>
+                                {this.state.isEdit ? (
+                                    <Box
+                                    sx={{
+                                        display: 'flex',
+                                        flexWrap: 'wrap',
+                                        listStyle: 'none',
+                                    }}>
+                                        {
+                                        this.state.games.sort((a, b) => b.game_name - a.game_name).map((game) => (
+                                            <Chip
+                                                key={game.index}
+                                                onDelete={() => this.handleGameDelete(game.index)}
+                                                label={
+                                                    <Input
+                                                        defaultValue={game.game_name}
+                                                        disableUnderline={true}
+                                                        onChange={(e)=> {this.handleGameEdit(e, game.index)}}
+                                                        size="small"
+                                                        sx={{ padding: 0}}
+                                                        />
+                                                }
                                                 size="small"
-                                                sx={{ padding: 0}}
-                                                />
-                                        }
-                                        size="small"
-                                        sx={{margin: "2px"}}
-                                    />
-                                ))}
+                                                sx={{margin: "2px"}}
+                                            />
+                                        ))}
+                                        <IconButton size="small" onClick={()=>{this.handleGameAdd()}}>
+                                            <AddIcon fontSize="small" />
+                                        </IconButton>
+                                        <IconButton onClick={
+                                            ()=>{
+                                                this.setState({isEdit:false});
+                                                this.changeGames(loginId, this.state.games, token)
+                                            }
+                                        }>
+                                            <SaveIcon fontSize="small" />
+                                        </IconButton>
+                                        <IconButton onClick={
+                                            ()=>{
+                                                this.setState({isEdit:false})
+                                                this.componentDidMount()
+                                            }
+                                        }>
+                                            <CancelIcon fontSize="small" />
+                                        </IconButton>
+                                    </Box>
+                                ) :(
+                                    <Box
+                                    sx={{
+                                        display: 'flex',
+                                        flexWrap: 'wrap',
+                                        listStyle: 'none',
+                                    }}>
+                                        {
+                                        this.state.games.sort((a, b) => b.game_name - a.game_name).map((game) => (
+                                            <Chip
+                                                key={game.index}
+                                                label={game.game_name}
+                                                size="small"
+                                                sx={{margin: "2px"}}
+                                            />
+                                        ))}
 
-                                <Chip
-                                    key="add"
-                                    onClick={(event) => this.handleGameAdd()}
-                                    label="+"
-                                    size="small"
-                                    sx={{margin: "2px"}}
-                                />
-                            </Box>
+                                        <IconButton size="small" onClick={()=>{this.setState({isEdit:true})}}>
+                                            <EditIcon fontSize="inherit" />
+                                        </IconButton>
+                                    </Box>
+                                )}
+                            </React.Fragment>
                         ) :
                         hasGames && !(this.props.userID === loginId) ? (
                             <Box sx={{
@@ -131,7 +209,19 @@ class User extends React.Component {
                             <Chip label={this.state.error} size="small" />
                             </Box>
                         )}
+                        {this.state.alert !== "" ? (
+
+                        <Alert severity={this.state.alert} sx={{position: 'fixed', bottom: 0, right: 0}}>
+                        <AlertTitle>{this.state.alert.charAt(0).toUpperCase() + this.state.alert.slice(1)}</AlertTitle>
+                        {this.state.alertText}
+                        </Alert>
+                        ):(
+                        ""
+                        )}
                     </React.Fragment>
+                
+                
+                    
                 )}
             </PageContext.Consumer>
         );

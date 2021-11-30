@@ -70,10 +70,10 @@ class Profile extends React.Component {
             if(result.errors){
                 throw new Error("500")
             }
-            this.sendAlert(1, "Successfully updated Profile");
+            this.sendAlert(1, "Successfully updated Bio");
         }
         catch(e){
-            this.sendAlert(3, "Failed to update Profile");
+            this.sendAlert(3, "Failed to update Bio");
         }
     }
 
@@ -150,7 +150,7 @@ class Profile extends React.Component {
                                                     </Typography>
                                                     {!this.state.isEdit ? (
                                                         <IconButton onClick={()=>{this.setState({isEdit:true})}}>
-                                                            <EditIcon fontsize="small" />
+                                                            <EditIcon/>
                                                         </IconButton>
                                                     ) : (
                                                         <Box>
@@ -160,7 +160,7 @@ class Profile extends React.Component {
                                                                     this.changeBio(loginId, this.state.user.bio, token)
                                                                 }
                                                             }>
-                                                                <SaveIcon fontsize="small" />
+                                                                <SaveIcon/>
                                                             </IconButton>
                                                             <IconButton onClick={
                                                                 ()=>{
@@ -168,7 +168,7 @@ class Profile extends React.Component {
                                                                     this.componentDidMount()
                                                                 }
                                                             }>
-                                                                <CancelIcon fontsize="small" />
+                                                                <CancelIcon/>
                                                             </IconButton>
                                                         </Box>
                                                     )}
