@@ -236,3 +236,59 @@ export async function changeGames(userId, names, token){
         return undefined;
     }
 }
+
+export async function curse(senderId, receiverId, token){
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    try{
+        var res = await fetch("http://localhost:3301/graphql", {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({
+                query: `mutation($sender: ID!, $receiver: ID!) {
+                            curse(sender: $senderId, receiver: $receiverId) {
+                            }
+                        }`,
+                variables: {"senderId":senderId, "receiverId":receiverId}
+            }),
+            redirect: 'follow'
+        })
+        if(res.status !== 200){
+            throw new Error("Request Failed!")
+        }
+        res = await res.json()
+        return res;
+    }
+    catch (e){
+        return undefined;
+    }
+}
+
+export async function thank(senderId, receiverId, token){
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+    try{
+        var res = await fetch("http://localhost:3301/graphql", {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({
+                query: `mutation($sender: ID!, $receiver: ID!) {
+                            thank(sender: $senderId, receiver: $receiverId) {
+                            }
+                        }`,
+                variables: {"senderId":senderId, "receiverId":receiverId}
+            }),
+            redirect: 'follow'
+        })
+        if(res.status !== 200){
+            throw new Error("Request Failed!")
+        }
+        res = await res.json()
+        return res;
+    }
+    catch (e){
+        return undefined;
+    }
+}
