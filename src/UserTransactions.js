@@ -39,8 +39,13 @@ export default class UserTransactions extends React.Component {
 
         var result = await getUserTrans(this.props.userID)
         if(result){
+            var transactions = result.data.usertransactions.map(item => {
+                var tranDate = new Date(+item.time).toLocaleString()
+                return {...item, timeString: tranDate
+                }})
+            console.log(transactions)
             this._isMounted && this.setState({
-                transactions: result.data.usertransactions
+                transactions: transactions
             });
         }
         else{
@@ -107,6 +112,11 @@ export default class UserTransactions extends React.Component {
                                             fontWeight: 'bold',
                                             fontSize: '1.5rem'
                                         }}>Receiver</TableCell>
+                                    <TableCell align="left" sx={{
+                                            color: "white",
+                                            fontWeight: 'bold',
+                                            fontSize: '1.5rem'
+                                        }}>Time</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -127,6 +137,7 @@ export default class UserTransactions extends React.Component {
                                         <TableCell align="left" sx={{fontWeight: "bold"}}>Set Rep for</TableCell>
                                     )}
                                     <TableUser userID={transaction.receiver} />
+                                    <TableCell align="left" sx={{fontWeight: "bold"}}>{transaction.timeString}</TableCell>
 
 
                                 </TableRow>
