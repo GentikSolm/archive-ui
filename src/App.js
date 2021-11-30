@@ -51,12 +51,11 @@ export default class App extends React.Component {
     render() {
         document.body.style.background = (this.state.isDark ? "#2c2f33": "#FFFFFF");
         const theme = createTheme({
-            palette: this.state.isDark ? ({
-                // Dark
-                mode: "dark",
+            palette: {
+                mode: this.state.isDark ? "dark" : 'light',
                 background: {
-                    default: "#2c2f33",
-                    paper: "#2c2f33"
+                    default: this.state.isDark ? "#2c2f33":"#FFFFFF" ,
+                    paper: this.state.isDark ? "#2c2f33": '#FFFFFF'
                 },
                 primary: {
                     main: "#5865F2",
@@ -65,25 +64,16 @@ export default class App extends React.Component {
                     main: "#FFFFFF",
                 },
                 text: {
-                    head: "#FFFFFF",
+                    primary: this.state.isDark ? "#FFFFFF" : '#000000',
                 },
-            }):({
-                //Light
-                mode: "light",
-                background: {
-                    default: "#FFFFFF",
-                    paper: '#FFFFFF'
+                success: {
+                    main: "#57F287"
                 },
-                primary: {
-                    main: "#5865F2",
-                },
-                secondary: {
-                    main: "#FFFFFF",
-                },
-                text: {
-                    head: "#000000",
-                },
-        })});
+                error: {
+                    main: "#ED4245"
+                }
+        }});
+
         return (
             <PageContext.Provider value={this.state}>
             <ThemeProvider theme={theme}>

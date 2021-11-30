@@ -12,7 +12,8 @@ import {
     Alert,
     AlertTitle,
     IconButton,
-    Chip
+    Chip,
+    Button
 } from '@mui/material';
 import UserTransactions from './UserTransactions';
 import EditIcon from '@mui/icons-material/Edit';
@@ -231,6 +232,14 @@ class Profile extends React.Component {
                                                 </Typography>
                                             </Grid>
                                         </Grid>
+                                        <div style={{width: '30%', display: 'flex', justifyContent: 'center', marginBottom: 10}}>
+                                        <Button variant="contained" color="success" sx={{marginRight: 4, width: '25%'}}>
+                                        Thank
+                                        </Button>
+                                        <Button variant="contained" color="error" sx={{width: '25%'}}>
+                                        Curse
+                                        </Button>
+                                        </div>
                                     <UserTransactions userID={this.state.user.user_id} />
                                 </React.Fragment>
                             )}
