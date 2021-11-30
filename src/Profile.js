@@ -115,6 +115,11 @@ class Profile extends React.Component {
                             <React.Fragment>
                                 {this.state.user.user_id === loginId ? (
                                     <React.Fragment>
+                                    <div style={{width: '100%', display: 'flex', justifyContent: 'flex-end', marginBottom: 10}}>
+                                    <Button variant="contained" color="error" sx={{width: '10%'}} onClick={() =>{window.location.href = "http://localhost:3000/";}}>
+                                    LogOut
+                                    </Button>
+                                    </div>
                                     <Grid container spacing={2} sx={{marginTop: 2,marginLeft: 1, padding: 2}}>
                                         <Grid item xs={4}>
                                             <Grid container spacing={2}>
@@ -233,10 +238,10 @@ class Profile extends React.Component {
                                             </Grid>
                                         </Grid>
                                         <div style={{width: '30%', display: 'flex', justifyContent: 'center', marginBottom: 10}}>
-                                        <Button variant="contained" color="success" sx={{marginRight: 4, width: '25%'}}>
+                                        <Button disabled={loginId === undefined} variant="contained" color="success" sx={{marginRight: 4, width: '25%'}}>
                                         Thank
                                         </Button>
-                                        <Button variant="contained" color="error" sx={{width: '25%'}}>
+                                        <Button disabled={loginId === undefined} variant="contained" color="error" sx={{width: '25%'}}>
                                         Curse
                                         </Button>
                                         </div>
